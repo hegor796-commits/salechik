@@ -151,6 +151,97 @@ footer ul li a:hover { color: var(--yellow); }
   .footer-grid { grid-template-columns: 1fr; }
   .hero { padding: 56px 16px; }
 }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.7); }
+  70%  { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ripple {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(4); opacity: 0; }
+}
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero entrance */
+.hero-emoji { animation: float 3.6s ease-in-out infinite; }
+.hero-content { animation: fadeInUp 0.7s ease both; }
+.badges .badge { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+.badges .badge:nth-child(1) { animation-delay: 0.1s; }
+.badges .badge:nth-child(2) { animation-delay: 0.2s; }
+.badges .badge:nth-child(3) { animation-delay: 0.3s; }
+.badges .badge:nth-child(4) { animation-delay: 0.4s; }
+.badges .badge:nth-child(5) { animation-delay: 0.5s; }
+
+/* Page transition */
+.page.active { animation: pageFade 0.4s ease both; }
+
+/* Scroll-reveal base state */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* Stagger children */
+.stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
+.stagger.visible > *:nth-child(5) { transition-delay: 0.45s; }
+.stagger.visible > *:nth-child(6) { transition-delay: 0.55s; }
+.stagger.visible > *:nth-child(7) { transition-delay: 0.65s; }
+.stagger.visible > *:nth-child(8) { transition-delay: 0.75s; }
+.stagger.visible > *:nth-child(9) { transition-delay: 0.85s; }
+.stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+/* Feature icon bounce on hover */
+.feature-card:hover .feature-icon { animation: popIn 0.4s ease; }
+
+/* Ripple */
+.ripple-host { position: relative; overflow: hidden; }
+.ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.55s linear forwards; }
+
+/* Logo wiggle on load */
+@keyframes logoWiggle {
+  0%,100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-8deg); }
+  75%      { transform: rotate(8deg); }
+}
+.logo-icon { display: inline-block; animation: logoWiggle 0.6s ease 0.8s; }
+
+/* Stat counter pop */
+.stat-num { animation: countUp 0.5s ease both; }
   </style>
 </head>
 <body>
@@ -180,8 +271,8 @@ footer ul li a:hover { color: var(--yellow); }
       <h1>Домашние куры<br><span>прямо с фермы</span></h1>
       <p>Живая птица без химии и гормонов. Бройлеры, несушки, цыплята — выращиваем сами, продаём честно.</p>
       <div class="hero-btns">
-        <a class="btn btn-primary" onclick="goTo('catalog')">🛒 Посмотреть каталог</a>
-        <a class="btn btn-outline" onclick="goTo('home','order')">📞 Оставить заявку</a>
+        <a class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</a>
+        <a class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</a>
       </div>
     </div>
   </section>
@@ -200,7 +291,7 @@ footer ul li a:hover { color: var(--yellow); }
         <h2>Популярные позиции</h2>
         <p>Самые востребованные куры этого сезона</p>
       </div>
-      <div class="cards-grid">
+      <div class="cards-grid stagger">
         <div class="chicken-card">
           <div class="card-image">🐔<span class="card-badge">Хит</span></div>
           <div class="card-body">
@@ -247,8 +338,8 @@ footer ul li a:hover { color: var(--yellow); }
           </div>
         </div>
       </div>
-      <div style="text-align:center;margin-top:36px;">
-        <a class="btn btn-primary" onclick="goTo('catalog')">Весь каталог →</a>
+      <div class="reveal" style="text-align:center;margin-top:36px;">
+        <a class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</a>
       </div>
     </div>
   </section>
@@ -259,7 +350,7 @@ footer ul li a:hover { color: var(--yellow); }
         <h2>Почему выбирают нас</h2>
         <p>Мы отвечаем за каждую птицу, выращенную на нашей ферме</p>
       </div>
-      <div class="features-grid">
+      <div class="features-grid stagger">
         <div class="feature-card"><div class="feature-icon">🌾</div><h3>Натуральное кормление</h3><p>Зерно, трава, без антибиотиков и стимуляторов роста</p></div>
         <div class="feature-card"><div class="feature-icon">🏥</div><h3>Ветеринарный контроль</h3><p>Регулярные осмотры, прививки, документы на птицу</p></div>
         <div class="feature-card"><div class="feature-icon">🚚</div><h3>Удобная доставка</h3><p>Самовывоз или доставка по городу и области в день заказа</p></div>
@@ -268,7 +359,7 @@ footer ul li a:hover { color: var(--yellow); }
     </div>
   </section>
 
-  <section class="form-section" id="order">
+  <section class="form-section reveal" id="order">
     <div class="container">
       <div class="section-title">
         <h2>Оставить заявку</h2>
@@ -347,7 +438,7 @@ footer ul li a:hover { color: var(--yellow); }
         <button class="filter-btn" data-filter="layer">🥚 Несушки</button>
         <button class="filter-btn" data-filter="chick">🐣 Цыплята</button>
       </div>
-      <div class="cards-grid" id="catalogGrid">
+      <div class="cards-grid stagger" id="catalogGrid">
 
         <div class="chicken-card" data-category="broiler">
           <div class="card-image">🐔<span class="card-badge">Хит</span></div>
@@ -448,26 +539,26 @@ footer ul li a:hover { color: var(--yellow); }
   <section>
     <div class="container">
       <div class="about-grid">
-        <div class="about-visual">🐔<br><br>🌾🌿🌻</div>
-        <div class="about-content">
+        <div class="about-visual reveal-left">🐔<br><br>🌾🌿🌻</div>
+        <div class="about-content reveal-right">
           <h2>Семейное хозяйство «КурФерма»</h2>
           <p>Наша история началась в 2012 году, когда Николай и Ирина Петровы решили открыть небольшое птицеводческое хозяйство под Краснодаром.</p>
           <p>За эти годы мы выросли от маленькой частной курятни до полноценной семейной фермы с несколькими тысячами голов птицы. Главное осталось неизменным — индивидуальный подход и честность в работе.</p>
           <p>Мы не работаем с посредниками: птица растёт у нас, доставка — прямо до вашей двери или самовывоз.</p>
           <div class="stats-row">
-            <div class="stat"><span class="stat-num">13+</span><span class="stat-label">лет на рынке</span></div>
-            <div class="stat"><span class="stat-num">5 000+</span><span class="stat-label">голов птицы</span></div>
-            <div class="stat"><span class="stat-num">1 200+</span><span class="stat-label">постоянных клиентов</span></div>
+            <div class="stat"><span class="stat-num" data-target="13+">13+</span><span class="stat-label">лет на рынке</span></div>
+            <div class="stat"><span class="stat-num" data-target="5000+">5 000+</span><span class="stat-label">голов птицы</span></div>
+            <div class="stat"><span class="stat-num" data-target="1200+">1 200+</span><span class="stat-label">постоянных клиентов</span></div>
           </div>
           <a class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</a>
         </div>
       </div>
     </div>
   </section>
-  <section class="why-section">
+  <section class="why-section reveal">
     <div class="container">
       <div class="section-title"><h2>Условия содержания</h2><p>Мы создаём комфортные условия для каждой птицы</p></div>
-      <div class="features-grid">
+      <div class="features-grid stagger">
         <div class="feature-card"><div class="feature-icon">🏠</div><h3>Просторные птичники</h3><p>Соблюдаем нормы плотности посадки. Птица не скучена, есть возможность свободно двигаться.</p></div>
         <div class="feature-card"><div class="feature-icon">🌾</div><h3>Натуральный корм</h3><p>Зерно собственного производства, трава, овощи. Никаких антибиотиков и стимуляторов роста.</p></div>
         <div class="feature-card"><div class="feature-icon">🌞</div><h3>Выгул на свежем воздухе</h3><p>Птица имеет доступ к выгулу в тёплое время года. Солнце, воздух, натуральные условия.</p></div>
@@ -478,7 +569,7 @@ footer ul li a:hover { color: var(--yellow); }
   <section id="delivery">
     <div class="container">
       <div class="section-title"><h2>Доставка и самовывоз</h2><p>Удобные способы получения заказа</p></div>
-      <div class="delivery-grid">
+      <div class="delivery-grid stagger">
         <div class="delivery-card"><div class="delivery-icon">🚗</div><div><h3>Доставка по городу</h3><p>Краснодар и пригороды — доставка в день заказа при заявке до 12:00. Бесплатно от 3 000 ₽.</p></div></div>
         <div class="delivery-card"><div class="delivery-icon">🚚</div><div><h3>Доставка по области</h3><p>Весь Краснодарский край. Согласовываем день и время. От 300 ₽ в зависимости от расстояния.</p></div></div>
         <div class="delivery-card"><div class="delivery-icon">🏡</div><div><h3>Самовывоз с фермы</h3><p>Краснодарский край, Динской р-н. По предварительному звонку.</p></div></div>
@@ -581,18 +672,22 @@ footer ul li a:hover { color: var(--yellow); }
 <div class="toast" id="toast"></div>
 
 <script>
+// ── Navigation ──
 function goTo(page, anchor) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
+  const target = document.getElementById('page-' + page);
+  target.classList.add('active');
   window.scrollTo(0, 0);
   updateNav(page);
+  observeReveal();
   if (anchor) {
     setTimeout(() => {
       const el = document.getElementById(anchor);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    }, 80);
   }
   document.getElementById('nav').classList.remove('open');
+  if (page === 'about') animateCounters();
 }
 
 function updateNav(page) {
@@ -606,22 +701,61 @@ function orderProduct(name) {
   goTo('home', 'order');
   setTimeout(() => {
     const sel = document.getElementById('productSelect');
-    if (sel) {
-      for (let opt of sel.options) {
-        if (opt.value === name) { sel.value = name; break; }
-      }
-    }
-  }, 200);
+    if (sel) for (let opt of sel.options) if (opt.value === name) { sel.value = name; break; }
+  }, 250);
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.innerHTML = '<span>✓</span>' + msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+// ── Scroll reveal (IntersectionObserver) ──
+function observeReveal() {
+  const els = document.querySelectorAll('.page.active .reveal, .page.active .reveal-left, .page.active .reveal-right, .page.active .stagger');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+  // Also immediately reveal elements already in viewport
+  els.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight) el.classList.add('visible');
+  });
 }
 
-// Burger
+// ── Counter animation ──
+function animateCounters() {
+  const counters = document.querySelectorAll('#page-about .stat-num');
+  counters.forEach(el => {
+    const text = el.dataset.target || el.textContent;
+    el.dataset.target = text;
+    const num = parseInt(text.replace(/\D/g, ''));
+    const suffix = text.replace(/[\d]/g, '');
+    let start = 0;
+    const dur = 1200;
+    const step = 16;
+    const inc = num / (dur / step);
+    const timer = setInterval(() => {
+      start += inc;
+      if (start >= num) { start = num; clearInterval(timer); }
+      el.textContent = Math.floor(start) + suffix;
+    }, step);
+  });
+}
+
+// ── Ripple effect ──
+document.addEventListener('click', (e) => {
+  const host = e.target.closest('.ripple-host');
+  if (!host) return;
+  const circle = document.createElement('span');
+  circle.className = 'ripple-circle';
+  const r = host.getBoundingClientRect();
+  const size = Math.max(r.width, r.height);
+  circle.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`;
+  host.appendChild(circle);
+  setTimeout(() => circle.remove(), 600);
+});
+
+// Add ripple-host to all buttons and nav-cta
+document.querySelectorAll('.btn-submit, .btn-card, .nav-cta').forEach(el => el.classList.add('ripple-host'));
+
+// ── Burger ──
 const burger = document.getElementById('burger');
 const nav = document.getElementById('nav');
 burger.addEventListener('click', () => nav.classList.toggle('open'));
@@ -629,43 +763,44 @@ document.addEventListener('click', (e) => {
   if (!burger.contains(e.target) && !nav.contains(e.target)) nav.classList.remove('open');
 });
 
-// Order form
+// ── Forms ──
 document.getElementById('orderForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-submit');
-  btn.textContent = 'Отправляем...';
-  btn.disabled = true;
+  btn.textContent = 'Отправляем...'; btn.disabled = true;
   setTimeout(() => {
     document.getElementById('orderForm').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   }, 900);
 });
 
-// Contact form
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-submit');
-  btn.textContent = 'Отправляем...';
-  btn.disabled = true;
+  btn.textContent = 'Отправляем...'; btn.disabled = true;
   setTimeout(() => {
     document.getElementById('contactForm').style.display = 'none';
     document.getElementById('contactSuccess').style.display = 'block';
   }, 900);
 });
 
-// Catalog filter
+// ── Catalog filter ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const cat = btn.dataset.filter;
     document.querySelectorAll('#catalogGrid .chicken-card').forEach(card => {
-      card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+      const show = cat === 'all' || card.dataset.category === cat;
+      card.style.display = show ? '' : 'none';
+      if (show) { card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'fadeInUp 0.35s ease'; }
     });
   });
 });
 
+// ── Init ──
 updateNav('home');
+observeReveal();
 </script>
 </body>
 </html>
