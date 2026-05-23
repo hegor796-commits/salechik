@@ -183,22 +183,26 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 /* Плавное появление страницы */
 .page.active { animation: pageFade 0.25s ease both; }
 
-/* Герой */
+/* Герой — дети отдельно */
 .hero-emoji { animation: float 3.6s ease-in-out infinite; }
-.hero-content { animation: fadeInUp 0.5s ease both; }
-.page-hero { animation: fadeInUp 0.5s ease 0.1s both; }
+.hero h1    { animation: fadeInUp 1.1s cubic-bezier(0.22,1,0.36,1) 0.1s  both; }
+.hero > .hero-content > p { animation: fadeInUp 1.1s cubic-bezier(0.22,1,0.36,1) 0.32s both; }
+.hero-btns  { animation: fadeInUp 1.1s cubic-bezier(0.22,1,0.36,1) 0.58s both; }
+
+/* Герой внутренних страниц */
+.page-hero .emoji { animation: float 3.6s ease-in-out 0.4s infinite; }
+.page-hero h1 { animation: fadeInUp 1s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.page-hero p  { animation: fadeInUp 1s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
 
 /* Лого */
 .logo-icon { display: inline-block; animation: logoWiggle 0.5s ease 0.6s both; }
 
-/* Scroll-reveal: элементы скрыты до появления в экране */
-.sr {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-  will-change: opacity, transform;
-}
-.sr.visible { opacity: 1; transform: none; }
+/* ── Scroll-reveal ── */
+.sr   { opacity:0; transform:translateY(36px);   transition:opacity 1s cubic-bezier(0.22,1,0.36,1),transform 1s cubic-bezier(0.22,1,0.36,1);   will-change:opacity,transform; }
+.sr-l { opacity:0; transform:translateX(-42px);  transition:opacity 1s cubic-bezier(0.22,1,0.36,1),transform 1s cubic-bezier(0.22,1,0.36,1);   will-change:opacity,transform; }
+.sr-r { opacity:0; transform:translateX(42px);   transition:opacity 1s cubic-bezier(0.22,1,0.36,1),transform 1s cubic-bezier(0.22,1,0.36,1);   will-change:opacity,transform; }
+.sr-s { opacity:0; transform:scale(0.82);        transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1); will-change:opacity,transform; }
+.sr.visible,.sr-l.visible,.sr-r.visible,.sr-s.visible { opacity:1; transform:none; }
 
 /* Ripple */
 .ripple-host { position: relative; overflow: hidden; }
@@ -641,24 +645,82 @@ function initScrollReveal(pageEl) {
   if (_srObserver) { _srObserver.disconnect(); _srObserver = null; }
   if (_srFallback) { clearTimeout(_srFallback); _srFallback = null; }
 
-  const targets = pageEl.querySelectorAll(
-    '.section-title, .chicken-card, .feature-card, .delivery-card, ' +
-    '.badge, .contact-item, .stat, .form-wrapper, ' +
-    '.about-visual, .about-content, .map-placeholder, ' +
-    '.info-note, [class*="note"], .reveal'
-  );
+  const all = [];
+  const seen = new Set();
+  const pidx = new Map(); // stagger index per parent element
 
-  // Assign sr class + stagger delay within same parent
-  const parentIdx = new Map();
-  targets.forEach(el => {
+  function tag(sel, cls) {
+    pageEl.querySelectorAll(sel).forEach(el => {
+      if (seen.has(el)) return;
+      seen.add(el);
+      el.classList.remove('sr','sr-l','sr-r','sr-s','visible');
+      el.classList.add(cls);
+      const p = el.parentElement;
+      const i = pidx.get(p) || 0;
+      el.style.transitionDelay = (i * 90) + 'ms';
+      pidx.set(p, i + 1);
+      all.push(el);
+    });
+  }
+
+  // ── Заголовки секций — h2 первым, p с задержкой
+  tag('.section-title h2', 'sr');
+  tag('.section-title p',  'sr');
+
+  // ── Фильтры каталога
+  tag('.filter-btn', 'sr-s');
+
+  // ── Карточки продуктов
+  tag('.chicken-card', 'sr');
+
+  // ── Блоки «Почему мы» и условия содержания
+  tag('.feature-card', 'sr');
+
+  // ── Блоки доставки
+  tag('.delivery-card', 'sr');
+
+  // ── Значки (pop-масштаб)
+  tag('.badge', 'sr-s');
+
+  // ── Контактные пункты (слева)
+  tag('.contact-info h2', 'sr');
+  tag('.contact-item', 'sr-l');
+
+  // ── Статистика (pop)
+  tag('.stat', 'sr-s');
+
+  // ── Страница «О нас» — каждый абзац отдельно
+  tag('.about-visual',      'sr-l');
+  tag('.about-content h2',  'sr');
+  tag('.about-content > p', 'sr');
+  tag('.about-content .btn','sr');
+
+  // ── Карта + как добраться
+  tag('.map-placeholder',   'sr-r');
+  pageEl.querySelectorAll('[style*="cream-dark"]').forEach(el => {
+    if (seen.has(el)) return;
+    seen.add(el);
     el.classList.add('sr');
-    el.classList.remove('visible');
     const p = el.parentElement;
-    const i = parentIdx.get(p) || 0;
-    el.style.transitionDelay = (i * 75) + 'ms';
-    parentIdx.set(p, i + 1);
+    const i = pidx.get(p) || 0;
+    el.style.transitionDelay = (i * 90) + 'ms';
+    pidx.set(p, i + 1);
+    all.push(el);
   });
 
+  // ── Поля формы — каждое поле отдельно
+  tag('.form-group',  'sr');
+  tag('.form-submit', 'sr');
+
+  // ── Кнопки-ссылки
+  tag('.reveal', 'sr');
+
+  // ── Футер по колонкам
+  tag('.footer-brand',    'sr-l');
+  tag('.footer-grid > div', 'sr');
+  tag('.footer-bottom',   'sr');
+
+  // Обсервер
   _srObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -666,12 +728,12 @@ function initScrollReveal(pageEl) {
         _srObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+  }, { threshold: 0.07, rootMargin: '0px 0px -20px 0px' });
 
-  targets.forEach(el => _srObserver.observe(el));
+  all.forEach(el => _srObserver.observe(el));
 
-  // Fallback: reveal all after 1.2s (for iOS file://)
-  _srFallback = setTimeout(() => targets.forEach(el => el.classList.add('visible')), 1200);
+  // Fallback для iOS file://
+  _srFallback = setTimeout(() => all.forEach(el => el.classList.add('visible')), 1600);
 }
 
 // ── Navigation ──
