@@ -186,20 +186,19 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 /* Герой */
 .hero-emoji { animation: float 3.6s ease-in-out infinite; }
 .hero-content { animation: fadeInUp 0.5s ease both; }
+.page-hero { animation: fadeInUp 0.5s ease 0.1s both; }
 
 /* Лого */
 .logo-icon { display: inline-block; animation: logoWiggle 0.5s ease 0.6s both; }
 
-/* Карточки появляются при показе страницы — CSS-only, без JS */
-.page.active .stagger > *:nth-child(1)  { animation: fadeInUp 0.4s ease 0.05s both; }
-.page.active .stagger > *:nth-child(2)  { animation: fadeInUp 0.4s ease 0.12s both; }
-.page.active .stagger > *:nth-child(3)  { animation: fadeInUp 0.4s ease 0.19s both; }
-.page.active .stagger > *:nth-child(4)  { animation: fadeInUp 0.4s ease 0.26s both; }
-.page.active .stagger > *:nth-child(5)  { animation: fadeInUp 0.4s ease 0.33s both; }
-.page.active .stagger > *:nth-child(6)  { animation: fadeInUp 0.4s ease 0.40s both; }
-.page.active .stagger > *:nth-child(7)  { animation: fadeInUp 0.4s ease 0.47s both; }
-.page.active .stagger > *:nth-child(8)  { animation: fadeInUp 0.4s ease 0.54s both; }
-.page.active .stagger > *:nth-child(9)  { animation: fadeInUp 0.4s ease 0.61s both; }
+/* Scroll-reveal: элементы скрыты до появления в экране */
+.sr {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  will-change: opacity, transform;
+}
+.sr.visible { opacity: 1; transform: none; }
 
 /* Ripple */
 .ripple-host { position: relative; overflow: hidden; }
@@ -634,6 +633,47 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 <div class="toast" id="toast"></div>
 
 <script>
+// ── Scroll Reveal ──
+let _srObserver = null;
+let _srFallback = null;
+
+function initScrollReveal(pageEl) {
+  if (_srObserver) { _srObserver.disconnect(); _srObserver = null; }
+  if (_srFallback) { clearTimeout(_srFallback); _srFallback = null; }
+
+  const targets = pageEl.querySelectorAll(
+    '.section-title, .chicken-card, .feature-card, .delivery-card, ' +
+    '.badge, .contact-item, .stat, .form-wrapper, ' +
+    '.about-visual, .about-content, .map-placeholder, ' +
+    '.info-note, [class*="note"], .reveal'
+  );
+
+  // Assign sr class + stagger delay within same parent
+  const parentIdx = new Map();
+  targets.forEach(el => {
+    el.classList.add('sr');
+    el.classList.remove('visible');
+    const p = el.parentElement;
+    const i = parentIdx.get(p) || 0;
+    el.style.transitionDelay = (i * 75) + 'ms';
+    parentIdx.set(p, i + 1);
+  });
+
+  _srObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        _srObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+
+  targets.forEach(el => _srObserver.observe(el));
+
+  // Fallback: reveal all after 1.2s (for iOS file://)
+  _srFallback = setTimeout(() => targets.forEach(el => el.classList.add('visible')), 1200);
+}
+
 // ── Navigation ──
 function goTo(page, anchor) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -641,6 +681,7 @@ function goTo(page, anchor) {
   target.classList.add('active');
   window.scrollTo(0, 0);
   updateNav(page);
+  requestAnimationFrame(() => initScrollReveal(target));
   if (anchor) {
     setTimeout(() => {
       const el = document.getElementById(anchor);
@@ -739,6 +780,9 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
     document.getElementById('contactSuccess').style.display = 'block';
   }, 900);
 });
+
+// ── Init scroll reveal for home page on load ──
+initScrollReveal(document.getElementById('page-home'));
 
 // ── Catalog filter ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
