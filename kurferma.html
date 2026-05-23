@@ -159,96 +159,51 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 
 /* ─── ANIMATIONS ─── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(36px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-14px); }
-}
-@keyframes popIn {
-  0%   { opacity: 0; transform: scale(0.7); }
-  70%  { transform: scale(1.08); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(40px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
 }
 @keyframes ripple {
-  from { transform: scale(0); opacity: 0.5; }
+  from { transform: scale(0); opacity: 0.4; }
   to   { transform: scale(4); opacity: 0; }
 }
 @keyframes pageFade {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes logoWiggle {
+  0%,100% { transform: rotate(0deg); }
+  30%      { transform: rotate(-8deg); }
+  70%      { transform: rotate(8deg); }
+}
 
-/* Hero entrance */
+/* Плавное появление страницы */
+.page.active { animation: pageFade 0.25s ease both; }
+
+/* Герой */
 .hero-emoji { animation: float 3.6s ease-in-out infinite; }
-.hero-content { animation: fadeInUp 0.7s ease both; }
-.badges .badge { opacity: 0; animation: fadeIn 0.5s ease forwards; }
-.badges .badge:nth-child(1) { animation-delay: 0.1s; }
-.badges .badge:nth-child(2) { animation-delay: 0.2s; }
-.badges .badge:nth-child(3) { animation-delay: 0.3s; }
-.badges .badge:nth-child(4) { animation-delay: 0.4s; }
-.badges .badge:nth-child(5) { animation-delay: 0.5s; }
+.hero-content { animation: fadeInUp 0.5s ease both; }
 
-/* Page transition */
-.page.active { animation: pageFade 0.4s ease both; }
+/* Лого */
+.logo-icon { display: inline-block; animation: logoWiggle 0.5s ease 0.6s both; }
 
-/* Scroll-reveal — по умолчанию ВИДНО, анимация срабатывает когда JS добавляет класс */
-.reveal, .reveal-left, .reveal-right { transition: opacity 0.55s ease, transform 0.55s ease; }
-.js-ready .reveal { opacity: 0; transform: translateY(32px); }
-.js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
-.js-ready .reveal-left { opacity: 0; transform: translateX(-40px); }
-.js-ready .reveal-left.visible { opacity: 1; transform: translateX(0); }
-.js-ready .reveal-right { opacity: 0; transform: translateX(40px); }
-.js-ready .reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-/* Stagger — по умолчанию ВИДНО */
-.stagger > * { transition: opacity 0.45s ease, transform 0.45s ease; }
-.js-ready .stagger > * { opacity: 0; transform: translateY(28px); }
-.js-ready .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
-.js-ready .stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
-.js-ready .stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
-.js-ready .stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
-.js-ready .stagger.visible > *:nth-child(5) { transition-delay: 0.45s; }
-.js-ready .stagger.visible > *:nth-child(6) { transition-delay: 0.55s; }
-.js-ready .stagger.visible > *:nth-child(7) { transition-delay: 0.65s; }
-.js-ready .stagger.visible > *:nth-child(8) { transition-delay: 0.75s; }
-.js-ready .stagger.visible > *:nth-child(9) { transition-delay: 0.85s; }
-.js-ready .stagger.visible > * { opacity: 1; transform: translateY(0); }
-
-/* Feature icon bounce on hover */
-.feature-card:hover .feature-icon { animation: popIn 0.4s ease; }
+/* Карточки появляются при показе страницы — CSS-only, без JS */
+.page.active .stagger > *:nth-child(1)  { animation: fadeInUp 0.4s ease 0.05s both; }
+.page.active .stagger > *:nth-child(2)  { animation: fadeInUp 0.4s ease 0.12s both; }
+.page.active .stagger > *:nth-child(3)  { animation: fadeInUp 0.4s ease 0.19s both; }
+.page.active .stagger > *:nth-child(4)  { animation: fadeInUp 0.4s ease 0.26s both; }
+.page.active .stagger > *:nth-child(5)  { animation: fadeInUp 0.4s ease 0.33s both; }
+.page.active .stagger > *:nth-child(6)  { animation: fadeInUp 0.4s ease 0.40s both; }
+.page.active .stagger > *:nth-child(7)  { animation: fadeInUp 0.4s ease 0.47s both; }
+.page.active .stagger > *:nth-child(8)  { animation: fadeInUp 0.4s ease 0.54s both; }
+.page.active .stagger > *:nth-child(9)  { animation: fadeInUp 0.4s ease 0.61s both; }
 
 /* Ripple */
 .ripple-host { position: relative; overflow: hidden; }
-.ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.55s linear forwards; }
-
-/* Logo wiggle on load */
-@keyframes logoWiggle {
-  0%,100% { transform: rotate(0deg); }
-  25%      { transform: rotate(-8deg); }
-  75%      { transform: rotate(8deg); }
-}
-.logo-icon { display: inline-block; animation: logoWiggle 0.6s ease 0.8s; }
-
-/* Stat counter pop */
-.stat-num { animation: countUp 0.5s ease both; }
+.ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.5s linear forwards; }
   </style>
 </head>
 <body>
@@ -366,7 +321,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
     </div>
   </section>
 
-  <section class="form-section reveal" id="order">
+  <section class="form-section" id="order">
     <div class="container">
       <div class="section-title">
         <h2>Оставить заявку</h2>
@@ -546,8 +501,8 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <section>
     <div class="container">
       <div class="about-grid">
-        <div class="about-visual reveal-left">🐔<br><br>🌾🌿🌻</div>
-        <div class="about-content reveal-right">
+        <div class="about-visual">🐔<br><br>🌾🌿🌻</div>
+        <div class="about-content">
           <h2>Семейное хозяйство «КурФерма»</h2>
           <p>Наша история началась в 2012 году, когда Николай и Ирина Петровы решили открыть небольшое птицеводческое хозяйство под Краснодаром.</p>
           <p>За эти годы мы выросли от маленькой частной курятни до полноценной семейной фермы с несколькими тысячами голов птицы. Главное осталось неизменным — индивидуальный подход и честность в работе.</p>
@@ -562,7 +517,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
       </div>
     </div>
   </section>
-  <section class="why-section reveal">
+  <section class="why-section">
     <div class="container">
       <div class="section-title"><h2>Условия содержания</h2><p>Мы создаём комфортные условия для каждой птицы</p></div>
       <div class="features-grid stagger">
@@ -686,7 +641,6 @@ function goTo(page, anchor) {
   target.classList.add('active');
   window.scrollTo(0, 0);
   updateNav(page);
-  observeReveal();
   if (anchor) {
     setTimeout(() => {
       const el = document.getElementById(anchor);
@@ -712,33 +666,6 @@ function orderProduct(name) {
   }, 250);
 }
 
-// ── Scroll reveal (IntersectionObserver) ──
-function observeReveal() {
-  const els = document.querySelectorAll('.page.active .reveal, .page.active .reveal-left, .page.active .reveal-right, .page.active .stagger');
-
-  // Immediately show anything already in viewport
-  els.forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight + 50) el.classList.add('visible');
-  });
-
-  if (!('IntersectionObserver' in window)) {
-    // Fallback: show everything
-    els.forEach(el => el.classList.add('visible'));
-    return;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
-
-  els.forEach(el => { if (!el.classList.contains('visible')) io.observe(el); });
-
-  // Hard fallback after 800ms — if still hidden, show anyway
-  setTimeout(() => {
-    els.forEach(el => el.classList.add('visible'));
-  }, 800);
-}
 
 // ── Counter animation ──
 function animateCounters() {
@@ -820,10 +747,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ── Init ──
-// Add js-ready to enable animations only when JS works
-document.documentElement.classList.add('js-ready');
 updateNav('home');
-observeReveal();
 </script>
 </body>
 </html>
