@@ -23,6 +23,8 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--cream); col
 a, button { touch-action: manipulation; }
 a { color: var(--brown); text-decoration: none; cursor: pointer; }
 a:hover { color: var(--brown-light); }
+/* Глобальный сброс button — чтобы кнопки выглядели как нужные элементы */
+button { font-family: inherit; font-size: inherit; background: none; border: none; cursor: pointer; padding: 0; color: inherit; line-height: inherit; }
 /* Prevent iOS zoom on input focus */
 input, select, textarea { font-size: 16px !important; }
 .page { display: none; }
@@ -32,8 +34,8 @@ header { background: var(--brown); color: var(--white); position: sticky; top: 0
 .logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 700; color: var(--yellow); text-decoration: none; cursor: pointer; }
 .logo-icon { font-size: 2rem; }
 nav { display: flex; gap: 6px; align-items: center; }
-nav a { color: var(--cream); padding: 8px 16px; border-radius: 8px; font-weight: 500; transition: background 0.2s, color 0.2s; }
-nav a:hover, nav a.active { background: var(--yellow); color: var(--brown); }
+nav a, nav button { color: var(--cream); padding: 8px 16px; border-radius: 8px; font-weight: 500; transition: background 0.2s, color 0.2s; }
+nav a:hover, nav a.active, nav button:hover, nav button.active { background: var(--yellow); color: var(--brown); }
 .nav-cta { background: var(--yellow); color: var(--brown) !important; font-weight: 700; margin-left: 8px; }
 .nav-cta:hover { background: var(--yellow-light) !important; }
 .burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
@@ -135,8 +137,8 @@ footer { background: #1e0f05; color: rgba(255,255,255,0.7); padding: 48px 24px 2
 footer h4 { color: var(--yellow); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
 footer ul { list-style: none; }
 footer ul li { margin-bottom: 8px; }
-footer ul li a { color: rgba(255,255,255,0.65); font-size: 0.9rem; transition: color 0.2s; }
-footer ul li a:hover { color: var(--yellow); }
+footer ul li a, footer ul li button { color: rgba(255,255,255,0.65); font-size: 0.9rem; transition: color 0.2s; }
+footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; }
 .toast { position: fixed; bottom: 28px; right: 28px; background: var(--brown); color: var(--white); padding: 14px 24px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.25); font-weight: 600; z-index: 999; transform: translateY(80px); opacity: 0; transition: all 0.35s cubic-bezier(.22,.61,.36,1); display: flex; align-items: center; gap: 10px; }
 .toast.show { transform: translateY(0); opacity: 1; }
@@ -253,13 +255,13 @@ footer ul li a:hover { color: var(--yellow); }
 
 <header>
   <div class="header-inner">
-    <a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
+    <button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button>
     <nav id="nav">
-      <a href="javascript:void(0)" onclick="goTo('home')">Главная</a>
-      <a href="javascript:void(0)" onclick="goTo('catalog')">Каталог</a>
-      <a href="javascript:void(0)" onclick="goTo('about')">О нас</a>
-      <a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a>
-      <a href="javascript:void(0)" onclick="goTo('home', 'order')" class="nav-cta">Заказать</a>
+      <button type="button" onclick="goTo('home')">Главная</button>
+      <button type="button" onclick="goTo('catalog')">Каталог</button>
+      <button type="button" onclick="goTo('about')">О нас</button>
+      <button type="button" onclick="goTo('contacts')">Контакты</button>
+      <button type="button" onclick="goTo('home', 'order')" class="nav-cta">Заказать</button>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -276,8 +278,8 @@ footer ul li a:hover { color: var(--yellow); }
       <h1>Домашние куры<br><span>прямо с фермы</span></h1>
       <p>Живая птица без химии и гормонов. Бройлеры, несушки, цыплята — выращиваем сами, продаём честно.</p>
       <div class="hero-btns">
-        <a href="javascript:void(0)" class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</a>
-        <a href="javascript:void(0)" class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</a>
+        <button type="button" class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</button>
+        <button type="button" class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</button>
       </div>
     </div>
   </section>
@@ -344,7 +346,7 @@ footer ul li a:hover { color: var(--yellow); }
         </div>
       </div>
       <div class="reveal" style="text-align:center;margin-top:36px;">
-        <a href="javascript:void(0)" class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</a>
+        <button type="button" class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</button>
       </div>
     </div>
   </section>
@@ -407,18 +409,18 @@ footer ul li a:hover { color: var(--yellow); }
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
+          <button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button>
           <p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p>
         </div>
         <div><h4>Каталог</h4><ul>
-          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li>
-          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li>
-          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li>
+          <li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li>
+          <li><button type="button" onclick="goTo('catalog')">Несушки</button></li>
+          <li><button type="button" onclick="goTo('catalog')">Цыплята</button></li>
         </ul></div>
         <div><h4>Информация</h4><ul>
-          <li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li>
-          <li><a href="javascript:void(0)" onclick="goTo('about')">Доставка</a></li>
-          <li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li>
+          <li><button type="button" onclick="goTo('about')">О хозяйстве</button></li>
+          <li><button type="button" onclick="goTo('about')">Доставка</button></li>
+          <li><button type="button" onclick="goTo('contacts')">Контакты</button></li>
         </ul></div>
         <div><h4>Контакты</h4><ul>
           <li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li>
@@ -519,7 +521,7 @@ footer ul li a:hover { color: var(--yellow); }
         <div>
           <h3 style="color:var(--brown);margin-bottom:8px">Оптовые заказы и спецпредложения</h3>
           <p style="color:var(--text-muted)">При заказе от 50 голов — скидка 10%. Постоянным покупателям накопительные скидки.</p>
-          <a href="javascript:void(0)" class="btn btn-primary" style="margin-top:16px;display:inline-flex" onclick="goTo('home','order')">Оставить заявку</a>
+          <button type="button" class="btn btn-primary" style="margin-top:16px;display:inline-flex" onclick="goTo('home','order')">Оставить заявку</button>
         </div>
       </div>
     </div>
@@ -528,9 +530,9 @@ footer ul li a:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('about')">Доставка</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('about')">Доставка</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span><span>Продажа домашней птицы с доставкой</span></div>
@@ -555,7 +557,7 @@ footer ul li a:hover { color: var(--yellow); }
             <div class="stat"><span class="stat-num" data-target="5000+">5 000+</span><span class="stat-label">голов птицы</span></div>
             <div class="stat"><span class="stat-num" data-target="1200+">1 200+</span><span class="stat-label">постоянных клиентов</span></div>
           </div>
-          <a href="javascript:void(0)" class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</a>
+          <button type="button" class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</button>
         </div>
       </div>
     </div>
@@ -588,17 +590,17 @@ footer ul li a:hover { color: var(--yellow); }
       <h2 style="font-size:2rem;font-weight:800;margin-bottom:12px;color:var(--yellow)">Готовы сделать заказ?</h2>
       <p style="opacity:0.85;margin-bottom:32px">Позвоните или оставьте заявку — перезвоним в течение 30 минут</p>
       <div class="hero-btns">
-        <a href="javascript:void(0)" class="btn btn-primary" onclick="goTo('home','order')">📋 Оставить заявку</a>
-        <a href="javascript:void(0)" class="btn btn-outline" onclick="goTo('contacts')">📞 Наши контакты</a>
+        <button type="button" class="btn btn-primary" onclick="goTo('home','order')">📋 Оставить заявку</button>
+        <button type="button" class="btn btn-outline" onclick="goTo('contacts')">📞 Наши контакты</button>
       </div>
     </div>
   </section>
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
@@ -664,9 +666,9 @@ footer ul li a:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
@@ -696,9 +698,9 @@ function goTo(page, anchor) {
 }
 
 function updateNav(page) {
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('nav a, nav button').forEach(el => el.classList.remove('active'));
   const map = { home: 0, catalog: 1, about: 2, contacts: 3 };
-  const links = document.querySelectorAll('nav a');
+  const links = document.querySelectorAll('nav a, nav button');
   if (map[page] !== undefined) links[map[page]].classList.add('active');
 }
 
