@@ -19,9 +19,12 @@
   --radius: 12px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--cream); color: var(--text); font-size: 16px; line-height: 1.6; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--cream); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-text-size-adjust: 100%; }
+a, button { touch-action: manipulation; }
 a { color: var(--brown); text-decoration: none; cursor: pointer; }
 a:hover { color: var(--brown-light); }
+/* Prevent iOS zoom on input focus */
+input, select, textarea { font-size: 16px !important; }
 .page { display: none; }
 .page.active { display: block; }
 header { background: var(--brown); color: var(--white); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
@@ -248,13 +251,13 @@ footer ul li a:hover { color: var(--yellow); }
 
 <header>
   <div class="header-inner">
-    <a class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
+    <a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
     <nav id="nav">
-      <a onclick="goTo('home')">Главная</a>
-      <a onclick="goTo('catalog')">Каталог</a>
-      <a onclick="goTo('about')">О нас</a>
-      <a onclick="goTo('contacts')">Контакты</a>
-      <a onclick="goTo('home', 'order')" class="nav-cta">Заказать</a>
+      <a href="javascript:void(0)" onclick="goTo('home')">Главная</a>
+      <a href="javascript:void(0)" onclick="goTo('catalog')">Каталог</a>
+      <a href="javascript:void(0)" onclick="goTo('about')">О нас</a>
+      <a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a>
+      <a href="javascript:void(0)" onclick="goTo('home', 'order')" class="nav-cta">Заказать</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -271,8 +274,8 @@ footer ul li a:hover { color: var(--yellow); }
       <h1>Домашние куры<br><span>прямо с фермы</span></h1>
       <p>Живая птица без химии и гормонов. Бройлеры, несушки, цыплята — выращиваем сами, продаём честно.</p>
       <div class="hero-btns">
-        <a class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</a>
-        <a class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</a>
+        <a href="javascript:void(0)" class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</a>
+        <a href="javascript:void(0)" class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</a>
       </div>
     </div>
   </section>
@@ -339,7 +342,7 @@ footer ul li a:hover { color: var(--yellow); }
         </div>
       </div>
       <div class="reveal" style="text-align:center;margin-top:36px;">
-        <a class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</a>
+        <a href="javascript:void(0)" class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</a>
       </div>
     </div>
   </section>
@@ -402,18 +405,18 @@ footer ul li a:hover { color: var(--yellow); }
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
+          <a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a>
           <p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p>
         </div>
         <div><h4>Каталог</h4><ul>
-          <li><a onclick="goTo('catalog')">Бройлеры</a></li>
-          <li><a onclick="goTo('catalog')">Несушки</a></li>
-          <li><a onclick="goTo('catalog')">Цыплята</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li>
         </ul></div>
         <div><h4>Информация</h4><ul>
-          <li><a onclick="goTo('about')">О хозяйстве</a></li>
-          <li><a onclick="goTo('about')">Доставка</a></li>
-          <li><a onclick="goTo('contacts')">Контакты</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('about')">Доставка</a></li>
+          <li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li>
         </ul></div>
         <div><h4>Контакты</h4><ul>
           <li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li>
@@ -514,7 +517,7 @@ footer ul li a:hover { color: var(--yellow); }
         <div>
           <h3 style="color:var(--brown);margin-bottom:8px">Оптовые заказы и спецпредложения</h3>
           <p style="color:var(--text-muted)">При заказе от 50 голов — скидка 10%. Постоянным покупателям накопительные скидки.</p>
-          <a class="btn btn-primary" style="margin-top:16px;display:inline-flex" onclick="goTo('home','order')">Оставить заявку</a>
+          <a href="javascript:void(0)" class="btn btn-primary" style="margin-top:16px;display:inline-flex" onclick="goTo('home','order')">Оставить заявку</a>
         </div>
       </div>
     </div>
@@ -523,9 +526,9 @@ footer ul li a:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a onclick="goTo('catalog')">Бройлеры</a></li><li><a onclick="goTo('catalog')">Несушки</a></li><li><a onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a onclick="goTo('about')">О хозяйстве</a></li><li><a onclick="goTo('about')">Доставка</a></li><li><a onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
+        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('about')">Доставка</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span><span>Продажа домашней птицы с доставкой</span></div>
@@ -550,7 +553,7 @@ footer ul li a:hover { color: var(--yellow); }
             <div class="stat"><span class="stat-num" data-target="5000+">5 000+</span><span class="stat-label">голов птицы</span></div>
             <div class="stat"><span class="stat-num" data-target="1200+">1 200+</span><span class="stat-label">постоянных клиентов</span></div>
           </div>
-          <a class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</a>
+          <a href="javascript:void(0)" class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</a>
         </div>
       </div>
     </div>
@@ -583,17 +586,17 @@ footer ul li a:hover { color: var(--yellow); }
       <h2 style="font-size:2rem;font-weight:800;margin-bottom:12px;color:var(--yellow)">Готовы сделать заказ?</h2>
       <p style="opacity:0.85;margin-bottom:32px">Позвоните или оставьте заявку — перезвоним в течение 30 минут</p>
       <div class="hero-btns">
-        <a class="btn btn-primary" onclick="goTo('home','order')">📋 Оставить заявку</a>
-        <a class="btn btn-outline" onclick="goTo('contacts')">📞 Наши контакты</a>
+        <a href="javascript:void(0)" class="btn btn-primary" onclick="goTo('home','order')">📋 Оставить заявку</a>
+        <a href="javascript:void(0)" class="btn btn-outline" onclick="goTo('contacts')">📞 Наши контакты</a>
       </div>
     </div>
   </section>
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a onclick="goTo('catalog')">Бройлеры</a></li><li><a onclick="goTo('catalog')">Несушки</a></li><li><a onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a onclick="goTo('about')">О хозяйстве</a></li><li><a onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
+        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
@@ -659,9 +662,9 @@ footer ul li a:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><a class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><a onclick="goTo('catalog')">Бройлеры</a></li><li><a onclick="goTo('catalog')">Несушки</a></li><li><a onclick="goTo('catalog')">Цыплята</a></li></ul></div>
-        <div><h4>Информация</h4><ul><li><a onclick="goTo('about')">О хозяйстве</a></li><li><a onclick="goTo('contacts')">Контакты</a></li></ul></div>
+        <div class="footer-brand"><a href="javascript:void(0)" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</a><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><a href="javascript:void(0)" onclick="goTo('catalog')">Бройлеры</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Несушки</a></li><li><a href="javascript:void(0)" onclick="goTo('catalog')">Цыплята</a></li></ul></div>
+        <div><h4>Информация</h4><ul><li><a href="javascript:void(0)" onclick="goTo('about')">О хозяйстве</a></li><li><a href="javascript:void(0)" onclick="goTo('contacts')">Контакты</a></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
