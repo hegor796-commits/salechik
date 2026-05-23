@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Продажа кур с фермы. Бройлеры, несушки, цыплята — живые и тушки. Свежее домашнее мясо с доставкой по региону.">
+  <title>КурФерма — Продажа домашних кур</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🐔</span>
+      КурФерма
+    </a>
+    <nav id="nav">
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="about.html">О нас</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="index.html#order" class="nav-cta">Заказать</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-emoji">🐣</span>
+    <h1>Домашние куры<br><span>прямо с фермы</span></h1>
+    <p>Свежее мясо без химии и гормонов. Бройлеры, несушки, цыплята — живые и тушки. Выращиваем сами, продаём честно.</p>
+    <div class="hero-btns">
+      <a href="catalog.html" class="btn btn-primary">🛒 Посмотреть каталог</a>
+      <a href="#order" class="btn btn-outline">📞 Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<!-- BADGES -->
+<div class="badges">
+  <div class="badge"><span class="badge-icon">🌿</span>Без ГМО и гормонов</div>
+  <div class="badge"><span class="badge-icon">🚚</span>Доставка по региону</div>
+  <div class="badge"><span class="badge-icon">🏡</span>Домашнее хозяйство</div>
+  <div class="badge"><span class="badge-icon">⭐</span>Более 10 лет на рынке</div>
+  <div class="badge"><span class="badge-icon">💯</span>Ветеринарные справки</div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Популярные позиции</h2>
+      <p>Самые востребованные куры этого сезона</p>
+    </div>
+    <div class="cards-grid">
+
+      <div class="chicken-card" data-category="broiler">
+        <div class="card-image">🐔<span class="card-badge">Хит</span></div>
+        <div class="card-body">
+          <h3>Бройлер Кобб-500</h3>
+          <p>Классический бройлер с отличным соотношением мяса и стоимости. Быстрый набор веса, нежное мясо.</p>
+          <div class="card-meta">
+            <span class="meta-item">⚖️ 2–3 кг</span>
+            <span class="meta-item">📅 45–50 дней</span>
+          </div>
+          <div class="card-footer">
+            <div class="price">250 ₽<span>/кг</span></div>
+            <button class="btn-card btn-order-card" data-name="Бройлер Кобб-500">Заказать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chicken-card" data-category="broiler">
+        <div class="card-image">🍗<span class="card-badge">Выгодно</span></div>
+        <div class="card-body">
+          <h3>Тушка охлаждённая</h3>
+          <p>Готовая к приготовлению потрошёная тушка бройлера. Охлаждённая, не замороженная — максимум свежести.</p>
+          <div class="card-meta">
+            <span class="meta-item">⚖️ 1.5–2.5 кг</span>
+            <span class="meta-item">❄️ Охлаждённая</span>
+          </div>
+          <div class="card-footer">
+            <div class="price">280 ₽<span>/кг</span></div>
+            <button class="btn-card btn-order-card" data-name="Тушка охлаждённая">Заказать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chicken-card" data-category="layer">
+        <div class="card-image">🥚</div>
+        <div class="card-body">
+          <h3>Несушка Хайсекс Браун</h3>
+          <p>Продуктивная несушка с высокой яйценоскостью. Идеально для домашнего хозяйства и малого фермерства.</p>
+          <div class="card-meta">
+            <span class="meta-item">🥚 300–320 яиц/год</span>
+            <span class="meta-item">🌟 Топ порода</span>
+          </div>
+          <div class="card-footer">
+            <div class="price">350 ₽<span>/гол.</span></div>
+            <button class="btn-card btn-order-card" data-name="Несушка Хайсекс Браун">Заказать</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <a href="catalog.html" class="btn btn-primary">Весь каталог →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Почему выбирают нас</h2>
+      <p>Мы отвечаем за каждую птицу, выращенную на нашей ферме</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌾</div>
+        <h3>Натуральное кормление</h3>
+        <p>Зерно, трава, без антибиотиков и стимуляторов роста</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏥</div>
+        <h3>Ветеринарный контроль</h3>
+        <p>Регулярные осмотры, прививки, документы на птицу</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <h3>Удобная доставка</h3>
+        <p>Самовывоз или доставка по городу и области в день заказа</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Честные цены</h3>
+        <p>Без наценок посредников — продаём напрямую с фермы</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="form-section" id="order">
+  <div class="container">
+    <div class="section-title">
+      <h2>Оставить заявку</h2>
+      <p>Заполните форму — мы перезвоним в течение 30 минут</p>
+    </div>
+    <div class="form-wrapper">
+      <form id="orderForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Ваше имя *</label>
+            <input type="text" id="name" name="name" placeholder="Иван Петров" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="productSelect">Что интересует?</label>
+          <select id="productSelect" name="product">
+            <option value="">— Выберите категорию —</option>
+            <option value="Бройлер Кобб-500">Бройлер Кобб-500</option>
+            <option value="Тушка охлаждённая">Тушка охлаждённая</option>
+            <option value="Несушка Хайсекс Браун">Несушка Хайсекс Браун</option>
+            <option value="Цыплята суточные">Цыплята суточные</option>
+            <option value="Курица деревенская">Курица деревенская (мясо-яичная)</option>
+            <option value="Другое">Другое</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Количество</label>
+          <input type="text" id="quantity" name="quantity" placeholder="Например: 10 штук или 20 кг">
+        </div>
+        <div class="form-group">
+          <label for="message">Комментарий</label>
+          <textarea id="message" name="message" placeholder="Уточните детали заказа, способ получения..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-submit">Оставить заявку</button>
+        </div>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">🎉</div>
+        <h3>Заявка принята!</h3>
+        <p>Мы получили вашу заявку и перезвоним в течение 30 минут.<br>Спасибо, что выбрали КурФерму!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🐔</span> КурФерма
+        </a>
+        <p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года. Качество и честность — наши главные принципы.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="catalog.html">Бройлеры</a></li>
+          <li><a href="catalog.html">Несушки</a></li>
+          <li><a href="catalog.html">Цыплята</a></li>
+          <li><a href="catalog.html">Тушки</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Информация</h4>
+        <ul>
+          <li><a href="about.html">О хозяйстве</a></li>
+          <li><a href="about.html#delivery">Доставка</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="index.html#order">Оформить заказ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li>
+          <li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li>
+          <li><a href="#">г. Краснодар</a></li>
+          <li><a href="#">Пн–Вс 8:00–20:00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 КурФерма. Все права защищены.</span>
+      <span>Продажа домашней птицы с доставкой</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
