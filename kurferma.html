@@ -210,13 +210,13 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 
 <header>
   <div class="header-inner">
-    <button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button>
+    <button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button>
     <nav id="nav">
-      <button type="button" onclick="goTo('home')">Главная</button>
-      <button type="button" onclick="goTo('catalog')">Каталог</button>
-      <button type="button" onclick="goTo('about')">О нас</button>
-      <button type="button" onclick="goTo('contacts')">Контакты</button>
-      <button type="button" onclick="goTo('home', 'order')" class="nav-cta">Заказать</button>
+      <button type="button" data-goto="home">Главная</button>
+      <button type="button" data-goto="catalog">Каталог</button>
+      <button type="button" data-goto="about">О нас</button>
+      <button type="button" data-goto="contacts">Контакты</button>
+      <button type="button" data-goto="home" data-anchor="order" class="nav-cta">Заказать</button>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -233,8 +233,8 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
       <h1>Домашние куры<br><span>прямо с фермы</span></h1>
       <p>Живая птица без химии и гормонов. Бройлеры, несушки, цыплята — выращиваем сами, продаём честно.</p>
       <div class="hero-btns">
-        <button type="button" class="btn btn-primary ripple-host" onclick="goTo('catalog')">🛒 Посмотреть каталог</button>
-        <button type="button" class="btn btn-outline ripple-host" onclick="goTo('home','order')">📞 Оставить заявку</button>
+        <button type="button" class="btn btn-primary ripple-host" data-goto="catalog">🛒 Посмотреть каталог</button>
+        <button type="button" class="btn btn-outline ripple-host" data-goto="home" data-anchor="order">📞 Оставить заявку</button>
       </div>
     </div>
   </section>
@@ -265,7 +265,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
             </div>
             <div class="card-footer">
               <div class="price">250 ₽<span>/кг</span></div>
-              <button class="btn-card" onclick="orderProduct('Бройлер Кобб-500')">Заказать</button>
+              <button class="btn-card" data-order="Бройлер Кобб-500">Заказать</button>
             </div>
           </div>
         </div>
@@ -280,7 +280,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
             </div>
             <div class="card-footer">
               <div class="price">350 ₽<span>/гол.</span></div>
-              <button class="btn-card" onclick="orderProduct('Несушка Хайсекс Браун')">Заказать</button>
+              <button class="btn-card" data-order="Несушка Хайсекс Браун">Заказать</button>
             </div>
           </div>
         </div>
@@ -295,13 +295,13 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
             </div>
             <div class="card-footer">
               <div class="price">90 ₽<span>/гол.</span></div>
-              <button class="btn-card" onclick="orderProduct('Цыплята суточные')">Заказать</button>
+              <button class="btn-card" data-order="Цыплята суточные">Заказать</button>
             </div>
           </div>
         </div>
       </div>
       <div class="reveal" style="text-align:center;margin-top:36px;">
-        <button type="button" class="btn btn-primary ripple-host" onclick="goTo('catalog')">Весь каталог →</button>
+        <button type="button" class="btn btn-primary ripple-host" data-goto="catalog">Весь каталог →</button>
       </div>
     </div>
   </section>
@@ -364,18 +364,18 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
-          <button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button>
+          <button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button>
           <p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p>
         </div>
         <div><h4>Каталог</h4><ul>
-          <li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li>
-          <li><button type="button" onclick="goTo('catalog')">Несушки</button></li>
-          <li><button type="button" onclick="goTo('catalog')">Цыплята</button></li>
+          <li><button type="button" data-goto="catalog">Бройлеры</button></li>
+          <li><button type="button" data-goto="catalog">Несушки</button></li>
+          <li><button type="button" data-goto="catalog">Цыплята</button></li>
         </ul></div>
         <div><h4>Информация</h4><ul>
-          <li><button type="button" onclick="goTo('about')">О хозяйстве</button></li>
-          <li><button type="button" onclick="goTo('about')">Доставка</button></li>
-          <li><button type="button" onclick="goTo('contacts')">Контакты</button></li>
+          <li><button type="button" data-goto="about">О хозяйстве</button></li>
+          <li><button type="button" data-goto="about">Доставка</button></li>
+          <li><button type="button" data-goto="contacts">Контакты</button></li>
         </ul></div>
         <div><h4>Контакты</h4><ul>
           <li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li>
@@ -406,63 +406,63 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
           <div class="card-image">🐔<span class="card-badge">Хит</span></div>
           <div class="card-body"><h3>Бройлер Кобб-500</h3><p>Самая популярная мясная порода. Быстрый набор веса, нежное белое мясо, экономичное кормление.</p>
           <div class="card-meta"><span class="meta-item">⚖️ 2–3 кг</span><span class="meta-item">📅 45–50 дней</span><span class="meta-item">🥩 Мясная</span></div>
-          <div class="card-footer"><div class="price">250 ₽<span>/кг живого веса</span></div><button class="btn-card" onclick="orderProduct('Бройлер Кобб-500')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">250 ₽<span>/кг живого веса</span></div><button class="btn-card" data-order="Бройлер Кобб-500">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="broiler">
           <div class="card-image">🐓</div>
           <div class="card-body"><h3>Бройлер Росс-308</h3><p>Высокопродуктивный кросс, адаптирован к разным условиям содержания. Отличная конверсия корма.</p>
           <div class="card-meta"><span class="meta-item">⚖️ 2.5–3.5 кг</span><span class="meta-item">📅 42–48 дней</span><span class="meta-item">🥩 Мясная</span></div>
-          <div class="card-footer"><div class="price">260 ₽<span>/кг живого веса</span></div><button class="btn-card" onclick="orderProduct('Бройлер Росс-308')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">260 ₽<span>/кг живого веса</span></div><button class="btn-card" data-order="Бройлер Росс-308">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="broiler">
           <div class="card-image">🐔<span class="card-badge">Новинка</span></div>
           <div class="card-body"><h3>Бройлер Смена-8</h3><p>Отечественный кросс, устойчив к болезням. Подходит для содержания в небольших хозяйствах.</p>
           <div class="card-meta"><span class="meta-item">⚖️ 2–2.8 кг</span><span class="meta-item">📅 50–55 дней</span><span class="meta-item">🇷🇺 Отечественный</span></div>
-          <div class="card-footer"><div class="price">230 ₽<span>/кг живого веса</span></div><button class="btn-card" onclick="orderProduct('Бройлер Смена-8')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">230 ₽<span>/кг живого веса</span></div><button class="btn-card" data-order="Бройлер Смена-8">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="layer">
           <div class="card-image">🥚<span class="card-badge">Топ</span></div>
           <div class="card-body"><h3>Несушка Хайсекс Браун</h3><p>Самая яйценоская порода — до 320 яиц в год. Коричневые яйца, спокойный характер, неприхотлива в уходе.</p>
           <div class="card-meta"><span class="meta-item">🥚 300–320/год</span><span class="meta-item">⚖️ 50–65 г яйцо</span><span class="meta-item">📅 17–18 нед.</span></div>
-          <div class="card-footer"><div class="price">350 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Несушка Хайсекс Браун')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">350 ₽<span>/гол.</span></div><button class="btn-card" data-order="Несушка Хайсекс Браун">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="layer">
           <div class="card-image">🐔</div>
           <div class="card-body"><h3>Несушка Ломанн Браун</h3><p>Популярный немецкий кросс. Высокая сохранность, стабильная яйценоскость в течение всего года.</p>
           <div class="card-meta"><span class="meta-item">🥚 290–310/год</span><span class="meta-item">⚖️ 62–65 г яйцо</span><span class="meta-item">📅 18 нед.</span></div>
-          <div class="card-footer"><div class="price">380 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Несушка Ломанн Браун')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">380 ₽<span>/гол.</span></div><button class="btn-card" data-order="Несушка Ломанн Браун">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="layer">
           <div class="card-image">🐓</div>
           <div class="card-body"><h3>Курица деревенская (мясо-яичная)</h3><p>Традиционная домашняя порода. Хороший наседный инстинкт, подходит для выгульного содержания.</p>
           <div class="card-meta"><span class="meta-item">🥚 180–220/год</span><span class="meta-item">⚖️ 2.5–3.5 кг</span><span class="meta-item">🏡 Деревенская</span></div>
-          <div class="card-footer"><div class="price">400 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Курица деревенская')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">400 ₽<span>/гол.</span></div><button class="btn-card" data-order="Курица деревенская">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="chick">
           <div class="card-image">🐣<span class="card-badge">Есть!</span></div>
           <div class="card-body"><h3>Цыплята суточные (бройлер)</h3><p>Суточные цыплята-бройлеры. Здоровые, вакцинированные по схеме. Отличный старт для хозяйства.</p>
           <div class="card-meta"><span class="meta-item">📅 1 сутки</span><span class="meta-item">💉 Вакцинированы</span><span class="meta-item">📦 от 10 шт.</span></div>
-          <div class="card-footer"><div class="price">90 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Цыплята суточные')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">90 ₽<span>/гол.</span></div><button class="btn-card" data-order="Цыплята суточные">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="chick">
           <div class="card-image">🐥</div>
           <div class="card-body"><h3>Подрощенные цыплята (3–4 нед.)</h3><p>Пережили критический период, крепкие и активные. Уже не нужен брудер — удобно для начинающих.</p>
           <div class="card-meta"><span class="meta-item">📅 3–4 недели</span><span class="meta-item">⚖️ 300–500 г</span><span class="meta-item">💪 Закалённые</span></div>
-          <div class="card-footer"><div class="price">180 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Подрощенные цыплята')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">180 ₽<span>/гол.</span></div><button class="btn-card" data-order="Подрощенные цыплята">Заказать</button></div></div>
         </div>
 
         <div class="chicken-card" data-category="chick">
           <div class="card-image">🐥<span class="card-badge">Выгодно</span></div>
           <div class="card-body"><h3>Цыплята несушки (суточные)</h3><p>Суточные цыплята кросс Хайсекс Браун. Сортировка по полу, только куры. Документы прилагаются.</p>
           <div class="card-meta"><span class="meta-item">📅 1 сутки</span><span class="meta-item">♀️ Только куры</span><span class="meta-item">📦 от 20 шт.</span></div>
-          <div class="card-footer"><div class="price">120 ₽<span>/гол.</span></div><button class="btn-card" onclick="orderProduct('Цыплята несушки суточные')">Заказать</button></div></div>
+          <div class="card-footer"><div class="price">120 ₽<span>/гол.</span></div><button class="btn-card" data-order="Цыплята несушки суточные">Заказать</button></div></div>
         </div>
 
       </div>
@@ -476,7 +476,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
         <div>
           <h3 style="color:var(--brown);margin-bottom:8px">Оптовые заказы и спецпредложения</h3>
           <p style="color:var(--text-muted)">При заказе от 50 голов — скидка 10%. Постоянным покупателям накопительные скидки.</p>
-          <button type="button" class="btn btn-primary" style="margin-top:16px;display:inline-flex" onclick="goTo('home','order')">Оставить заявку</button>
+          <button type="button" class="btn btn-primary" style="margin-top:16px;display:inline-flex" data-goto="home" data-anchor="order">Оставить заявку</button>
         </div>
       </div>
     </div>
@@ -485,9 +485,9 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
-        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('about')">Доставка</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="about">Доставка</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span><span>Продажа домашней птицы с доставкой</span></div>
@@ -512,7 +512,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
             <div class="stat"><span class="stat-num" data-target="5000+">5 000+</span><span class="stat-label">голов птицы</span></div>
             <div class="stat"><span class="stat-num" data-target="1200+">1 200+</span><span class="stat-label">постоянных клиентов</span></div>
           </div>
-          <button type="button" class="btn btn-primary" onclick="goTo('home','order')">Сделать заказ</button>
+          <button type="button" class="btn btn-primary" data-goto="home" data-anchor="order">Сделать заказ</button>
         </div>
       </div>
     </div>
@@ -545,17 +545,17 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
       <h2 style="font-size:2rem;font-weight:800;margin-bottom:12px;color:var(--yellow)">Готовы сделать заказ?</h2>
       <p style="opacity:0.85;margin-bottom:32px">Позвоните или оставьте заявку — перезвоним в течение 30 минут</p>
       <div class="hero-btns">
-        <button type="button" class="btn btn-primary" onclick="goTo('home','order')">📋 Оставить заявку</button>
-        <button type="button" class="btn btn-outline" onclick="goTo('contacts')">📞 Наши контакты</button>
+        <button type="button" class="btn btn-primary" data-goto="home" data-anchor="order">📋 Оставить заявку</button>
+        <button type="button" class="btn btn-outline" data-goto="contacts">📞 Наши контакты</button>
       </div>
     </div>
   </section>
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
-        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
@@ -621,9 +621,9 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" onclick="goTo('home')"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
-        <div><h4>Каталог</h4><ul><li><button type="button" onclick="goTo('catalog')">Бройлеры</button></li><li><button type="button" onclick="goTo('catalog')">Несушки</button></li><li><button type="button" onclick="goTo('catalog')">Цыплята</button></li></ul></div>
-        <div><h4>Информация</h4><ul><li><button type="button" onclick="goTo('about')">О хозяйстве</button></li><li><button type="button" onclick="goTo('contacts')">Контакты</button></li></ul></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
+        <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
       </div>
       <div class="footer-bottom"><span>© 2025 КурФерма.</span></div>
@@ -686,6 +686,14 @@ function animateCounters() {
     }, step);
   });
 }
+
+// ── Navigation (data-goto / data-order) ──
+document.addEventListener('click', (e) => {
+  const orderBtn = e.target.closest('[data-order]');
+  if (orderBtn) { orderProduct(orderBtn.dataset.order); return; }
+  const navBtn = e.target.closest('[data-goto]');
+  if (navBtn) { goTo(navBtn.dataset.goto, navBtn.dataset.anchor); return; }
+});
 
 // ── Ripple effect ──
 document.addEventListener('click', (e) => {
