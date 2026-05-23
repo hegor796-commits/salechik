@@ -649,7 +649,8 @@ function initScrollReveal(pageEl) {
   const seen = new Set();
   const pidx = new Map(); // stagger index per parent element
 
-  function tag(sel, cls) {
+  function tag(sel, cls, step) {
+    const ms = step !== undefined ? step : 90;
     pageEl.querySelectorAll(sel).forEach(el => {
       if (seen.has(el)) return;
       seen.add(el);
@@ -657,7 +658,7 @@ function initScrollReveal(pageEl) {
       el.classList.add(cls);
       const p = el.parentElement;
       const i = pidx.get(p) || 0;
-      el.style.transitionDelay = (i * 90) + 'ms';
+      el.style.transitionDelay = (i * ms) + 'ms';
       pidx.set(p, i + 1);
       all.push(el);
     });
@@ -668,16 +669,16 @@ function initScrollReveal(pageEl) {
   tag('.section-title p',  'sr');
 
   // ── Фильтры каталога
-  tag('.filter-btn', 'sr-s');
+  tag('.filter-btn', 'sr-s', 100);
 
   // ── Карточки продуктов
-  tag('.chicken-card', 'sr');
+  tag('.chicken-card', 'sr', 120);
 
-  // ── Блоки «Почему мы» и условия содержания
-  tag('.feature-card', 'sr');
+  // ── Блоки «Почему мы» — последовательно один за другим
+  tag('.feature-card', 'sr', 200);
 
-  // ── Блоки доставки
-  tag('.delivery-card', 'sr');
+  // ── Блоки доставки — тоже последовательно
+  tag('.delivery-card', 'sr', 180);
 
   // ── Значки (pop-масштаб)
   tag('.badge', 'sr-s');
