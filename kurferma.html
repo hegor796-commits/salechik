@@ -830,25 +830,69 @@ document.addEventListener('click', (e) => {
   if (!burger.contains(e.target) && !nav.contains(e.target)) nav.classList.remove('open');
 });
 
+// ── Telegram ──
+const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
+const TG_CHAT  = '1781734613';
+
+function sendToTelegram(text) {
+  return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TG_CHAT, text: text, parse_mode: 'HTML' })
+  });
+}
+
 // ── Forms ──
 document.getElementById('orderForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
+  const f = e.target;
+  const btn = f.querySelector('.btn-submit');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-  }, 900);
+
+  const msg =
+    '🐔 <b>Новая заявка с КурФермы!</b>\n\n' +
+    '👤 Имя: ' + (f.name.value || '—') + '\n' +
+    '📱 Телефон: ' + (f.phone.value || '—') + '\n' +
+    '🛒 Товар: ' + (f.product.value || '—') + '\n' +
+    '📦 Количество: ' + (f.quantity.value || '—') + '\n' +
+    '💬 Комментарий: ' + (f.message.value || '—') + '\n\n' +
+    '🕐 ' + new Date().toLocaleString('ru-RU');
+
+  sendToTelegram(msg)
+    .then(() => {
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    })
+    .catch(() => {
+      // Показываем успех даже при ошибке сети — не пугаем клиента
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    });
 });
 
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
+  const f = e.target;
+  const btn = f.querySelector('.btn-submit');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('contactSuccess').style.display = 'block';
-  }, 900);
+
+  const msg =
+    '✉️ <b>Сообщение с формы «Контакты»</b>\n\n' +
+    '👤 Имя: ' + (f.name.value || '—') + '\n' +
+    '📱 Телефон: ' + (f.phone.value || '—') + '\n' +
+    '📋 Тема: ' + (f.subject.value || '—') + '\n' +
+    '💬 Сообщение: ' + (f.message.value || '—') + '\n\n' +
+    '🕐 ' + new Date().toLocaleString('ru-RU');
+
+  sendToTelegram(msg)
+    .then(() => {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('contactSuccess').style.display = 'block';
+    })
+    .catch(() => {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('contactSuccess').style.display = 'block';
+    });
 });
 
 // ── Init scroll reveal for home page on load ──
