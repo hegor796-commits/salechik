@@ -41,7 +41,7 @@ nav a:hover, nav a.active, nav button:hover, nav button.active { background: var
 .burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
 .burger span { display: block; width: 26px; height: 3px; background: var(--cream); border-radius: 2px; transition: 0.3s; }
 .hero { background: linear-gradient(135deg, var(--brown) 0%, #3d1f07 100%); color: var(--white); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; inset: 0; background: url('chickens.jpg') center/cover no-repeat; opacity: 0.45; }
+.hero::before { content: ''; position: absolute; inset: 0; background: var(--hero-bg-img, url('chickens.jpg')) center/cover no-repeat; opacity: 0.45; }
 .hero::after  { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(62,20,4,0.72) 0%, rgba(90,40,10,0.65) 100%); }
 .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
 .hero-emoji { font-size: 5rem; margin-bottom: 20px; display: block; }
@@ -895,6 +895,27 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
       document.getElementById('contactSuccess').style.display = 'block';
     });
 });
+
+// ── Auto-detect hero background photo (tries common filenames/extensions) ──
+(function() {
+  const candidates = [
+    'chickens.jpg','chickens.jpeg','chickens.JPG','chickens.JPEG','chickens.png','chickens.PNG',
+    'chicken.jpg','chicken.jpeg','chicken.JPG','chicken.JPEG',
+    'photo.jpg','photo.jpeg','фото.jpg','кура.jpg','куры.jpg','broiler.jpg'
+  ];
+  let idx = 0;
+  function tryNext() {
+    if (idx >= candidates.length) return;
+    const name = candidates[idx++];
+    const img = new Image();
+    img.onload = () => {
+      document.documentElement.style.setProperty('--hero-bg-img', "url('" + name + "')");
+    };
+    img.onerror = tryNext;
+    img.src = name;
+  }
+  tryNext();
+})();
 
 // ── Init scroll reveal for home page on load ──
 initScrollReveal(document.getElementById('page-home'));
