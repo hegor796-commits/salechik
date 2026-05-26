@@ -84,7 +84,7 @@ section { padding: 64px 24px; }
 .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
 .feature-card p { font-size: 0.9rem; color: var(--text-muted); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-.about-visual { background: linear-gradient(135deg, var(--brown) 0%, #5a2d0c 100%); border-radius: var(--radius); padding: 48px; text-align: center; font-size: 6rem; box-shadow: var(--shadow); }
+.about-visual { background: linear-gradient(135deg, var(--brown) 0%, #5a2d0c 100%); border-radius: var(--radius); padding: 48px; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
 .about-content h2 { font-size: 2rem; font-weight: 800; color: var(--brown); margin-bottom: 16px; }
 .about-content p { color: var(--text-muted); margin-bottom: 14px; }
 .stats-row { display: flex; gap: 24px; margin: 24px 0; flex-wrap: wrap; }
@@ -196,7 +196,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 .page-hero p  { animation: fadeInUp 1s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
 
 /* Лого */
-.logo-icon { display: inline-block; animation: logoWiggle 0.5s ease 0.6s both; }
+.logo-icon { display: inline-block; animation: logoWiggle 0.5s ease 0.6s both; vertical-align: middle; }
 
 /* ── Scroll-reveal ── */
 .sr   { opacity:0; transform:translateY(40px);  filter:blur(5px); transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1),transform 1.1s cubic-bezier(0.16,1,0.3,1),filter 0.9s cubic-bezier(0.16,1,0.3,1); will-change:opacity,transform,filter; }
@@ -211,10 +211,89 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   </style>
 </head>
 <body>
+<!-- ═══ SVG LOGO SYMBOL (единожды, используется через <use href="#logo-kf">) ═══ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo-kf" viewBox="0 0 300 300">
+    <defs>
+      <path id="_lta" d="M 22,150 A 128,128 0 0,0 278,150"/>
+      <path id="_lba" d="M 22,150 A 128,128 0 0,1 278,150"/>
+    </defs>
+    <!-- Фон -->
+    <circle cx="150" cy="150" r="148" fill="#ECE8D9"/>
+    <!-- Внешняя рамка (пунктир) -->
+    <circle cx="150" cy="150" r="140" fill="none" stroke="#2A5428" stroke-width="15" stroke-dasharray="11,6.5"/>
+    <!-- Заполнение внутри рамки -->
+    <circle cx="150" cy="150" r="131" fill="#ECE8D9"/>
+    <!-- Внутренняя тонкая линия -->
+    <circle cx="150" cy="150" r="130" fill="none" stroke="#2A5428" stroke-width="1.5"/>
+    <!-- Текст сверху -->
+    <text font-family="Georgia,Times New Roman,serif" font-size="13" fill="#2A5428" letter-spacing="2.2" font-weight="bold">
+      <textPath href="#_lta" startOffset="5%">ЖИВАЯ · ДОМАШНЯЯ ПТИЦА · ЗДОРОВАЯ ·</textPath>
+    </text>
+    <!-- Текст снизу (перевёрнутый, как на печати) -->
+    <text font-family="Georgia,Times New Roman,serif" font-size="13" fill="#2A5428" letter-spacing="2.2" font-weight="bold">
+      <textPath href="#_lba" startOffset="6%">ЗДОРОВАЯ · ЖИВАЯ · ДОМАШНЯЯ ПТИЦА ·</textPath>
+    </text>
+    <!-- Хвостовые перья (под телом) -->
+    <ellipse cx="100" cy="138" rx="9" ry="32" fill="#C4943A" transform="rotate(-75,100,138)"/>
+    <ellipse cx="98"  cy="150" rx="10" ry="35" fill="#4A8F3E" transform="rotate(-60,98,150)"/>
+    <ellipse cx="100" cy="163" rx="11" ry="36" fill="#2A5428" transform="rotate(-45,100,163)"/>
+    <ellipse cx="111" cy="170" rx="10" ry="33" fill="#8B3020" transform="rotate(-30,111,170)"/>
+    <!-- Тело -->
+    <ellipse cx="158" cy="172" rx="44" ry="38" fill="#B85C30"/>
+    <!-- Крыло -->
+    <ellipse cx="153" cy="176" rx="28" ry="18" fill="#9A4A24" transform="rotate(-8,153,176)"/>
+    <path d="M 133,170 Q 153,163 173,170" stroke="#7A3618" stroke-width="1.5" fill="none"/>
+    <path d="M 135,177 Q 153,170 171,177" stroke="#7A3618" stroke-width="1.5" fill="none"/>
+    <!-- Шея -->
+    <ellipse cx="185" cy="155" rx="16" ry="11" fill="#B85C30" transform="rotate(18,185,155)"/>
+    <!-- Голова -->
+    <circle cx="192" cy="136" r="21" fill="#B85C30"/>
+    <!-- Гребень -->
+    <path d="M 184,115 C 179,107 176,101 180,97 C 183,93 189,97 187,103 C 191,98 195,95 198,99 C 201,103 196,108 194,113 Z" fill="#CC2200"/>
+    <!-- Серёжка -->
+    <ellipse cx="204" cy="135" rx="6.5" ry="9" fill="#CC2200"/>
+    <!-- Глаз -->
+    <circle cx="200" cy="130" r="6.5" fill="#F0ECD8"/>
+    <circle cx="201" cy="130" r="3.5" fill="#1A0800"/>
+    <circle cx="202" cy="128.5" r="1.2" fill="white"/>
+    <!-- Клюв -->
+    <path d="M 209,132 L 222,137 L 209,142 Z" fill="#D4AA50"/>
+    <!-- Ноги -->
+    <rect x="146" y="207" width="9" height="24" fill="#D4AA50" rx="3"/>
+    <rect x="163" y="207" width="9" height="24" fill="#D4AA50" rx="3"/>
+    <!-- Пальцы левой ноги -->
+    <line x1="150" y1="230" x2="139" y2="238" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="150" y1="230" x2="150" y2="240" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="150" y1="230" x2="162" y2="237" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Пальцы правой ноги -->
+    <line x1="167" y1="230" x2="156" y2="238" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="167" y1="230" x2="167" y2="240" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="167" y1="230" x2="179" y2="237" stroke="#D4AA50" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Колоски слева -->
+    <g stroke="#C4943A" stroke-width="2.2" stroke-linecap="round" fill="none">
+      <line x1="122" y1="230" x2="113" y2="204"/><line x1="113" y1="220" x2="107" y2="215"/>
+      <line x1="114" y1="215" x2="108" y2="210"/><line x1="115" y1="210" x2="109" y2="205"/>
+    </g>
+    <g stroke="#C4943A" stroke-width="2.2" stroke-linecap="round" fill="none">
+      <line x1="134" y1="234" x2="129" y2="206"/><line x1="129" y1="222" x2="123" y2="217"/>
+      <line x1="130" y1="217" x2="124" y2="212"/><line x1="131" y1="212" x2="125" y2="207"/>
+    </g>
+    <!-- Колоски справа -->
+    <g stroke="#C4943A" stroke-width="2.2" stroke-linecap="round" fill="none">
+      <line x1="192" y1="230" x2="201" y2="204"/><line x1="201" y1="220" x2="207" y2="215"/>
+      <line x1="200" y1="215" x2="206" y2="210"/><line x1="199" y1="210" x2="205" y2="205"/>
+    </g>
+    <g stroke="#C4943A" stroke-width="2.2" stroke-linecap="round" fill="none">
+      <line x1="178" y1="234" x2="185" y2="206"/><line x1="185" y1="222" x2="191" y2="217"/>
+      <line x1="184" y1="217" x2="190" y2="212"/><line x1="183" y1="212" x2="189" y2="207"/>
+    </g>
+  </symbol>
+</svg>
 
 <header>
   <div class="header-inner">
-    <button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button>
+    <button type="button" class="logo" data-goto="home"><svg class="logo-icon" width="46" height="46" aria-hidden="true"><use href="#logo-kf"/></svg>КурФерма</button>
     <nav id="nav">
       <button type="button" data-goto="home">Главная</button>
       <button type="button" data-goto="catalog">Каталог</button>
@@ -373,7 +452,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
-          <button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button>
+          <button type="button" class="logo" data-goto="home"><svg class="logo-icon" width="46" height="46" aria-hidden="true"><use href="#logo-kf"/></svg>КурФерма</button>
           <p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p>
         </div>
         <div><h4>Каталог</h4><ul>
@@ -494,7 +573,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><svg class="logo-icon" width="46" height="46" aria-hidden="true"><use href="#logo-kf"/></svg>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
         <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
         <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="about">Доставка</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
@@ -510,7 +589,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <section>
     <div class="container">
       <div class="about-grid">
-        <div class="about-visual">🐔<br><br>🌾🌿🌻</div>
+        <div class="about-visual"><svg width="230" height="230" aria-label="КурФерма — живая домашняя птица"><use href="#logo-kf"/></svg></div>
         <div class="about-content">
           <h2>Семейное хозяйство «КурФерма»</h2>
           <p>Наша история началась в 2012 году, когда Николай и Ирина Петровы решили открыть небольшое птицеводческое хозяйство под Краснодаром.</p>
@@ -562,7 +641,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><svg class="logo-icon" width="46" height="46" aria-hidden="true"><use href="#logo-kf"/></svg>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
         <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
         <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
@@ -630,7 +709,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><span class="logo-icon">🐔</span>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
+        <div class="footer-brand"><button type="button" class="logo" data-goto="home"><svg class="logo-icon" width="46" height="46" aria-hidden="true"><use href="#logo-kf"/></svg>КурФерма</button><p>Домашнее птицеводческое хозяйство. Продаём кур с 2012 года.</p></div>
         <div><h4>Каталог</h4><ul><li><button type="button" data-goto="catalog">Бройлеры</button></li><li><button type="button" data-goto="catalog">Несушки</button></li><li><button type="button" data-goto="catalog">Цыплята</button></li></ul></div>
         <div><h4>Информация</h4><ul><li><button type="button" data-goto="about">О хозяйстве</button></li><li><button type="button" data-goto="contacts">Контакты</button></li></ul></div>
         <div><h4>Контакты</h4><ul><li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li><li><a href="mailto:info@kurferma.ru">info@kurferma.ru</a></li><li>г. Краснодар</li></ul></div>
