@@ -665,7 +665,7 @@ let _srObserver = null, _srFallback = null;
   const src  = document.querySelector('.logo-icon');
   if (wrap && src) {
     const cl = src.cloneNode(true);
-    cl.style.cssText = 'width:200px;height:200px;object-fit:contain;display:block;opacity:0;';
+    cl.style.cssText = 'width:200px;height:200px;object-fit:contain;display:block;opacity:0;mix-blend-mode:screen;filter:brightness(1.15);';
     wrap.appendChild(cl);
   }
   document.body.classList.add('splash-active');
@@ -962,9 +962,9 @@ window.addEventListener('load', function() {
       .to(splashTitle,   { opacity: 1, y: 0,     duration: 1.1,  ease: 'power3.out' }, '-=1.0')
       .to(splashTagline, { opacity: 1,            duration: 0.9,  ease: 'power3.out' }, '-=0.6')
       .to({}, { duration: 1.1 })
-      .to([splashLogo, splashTitle, splashTagline].filter(Boolean), {
+      .to('#splash-inner', {
         scale: 3.5, opacity: 0, filter: 'blur(35px)',
-        duration: 2.0, ease: 'power4.in', stagger: 0.09
+        duration: 2.0, ease: 'power4.in', transformOrigin: '50% 50%'
       });
   }
 
