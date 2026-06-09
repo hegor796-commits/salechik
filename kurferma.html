@@ -223,7 +223,6 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 
 
 /* ── GSAP additions ── */
-#cursor-glow { pointer-events:none; position:fixed; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(245,200,66,0.13) 0%, transparent 70%); z-index:0; top:0; left:0; will-change:transform; transition:none; }
 .timeline::before { display:none; }
 .tl-line-track { position:absolute; left:20px; top:8px; bottom:8px; width:2px; background:var(--cream-dark); border-radius:2px; overflow:hidden; }
 .tl-line-fill { position:absolute; inset:0; background:linear-gradient(to bottom, var(--brown-light), var(--cream-dark)); border-radius:2px; transform-origin:top center; transform:scaleY(0); }
@@ -914,17 +913,6 @@ initScrollReveal(document.getElementById('page-home'));
 window.addEventListener('load', function() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-
-  // 1. Cursor glow (desktop only)
-  if (window.matchMedia('(pointer: fine)').matches) {
-    const glow = document.createElement('div');
-    glow.id = 'cursor-glow';
-    document.body.appendChild(glow);
-    gsap.set(glow, { xPercent: -50, yPercent: -50 });
-    document.addEventListener('mousemove', e => {
-      gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.9, ease: 'power2.out' });
-    });
-  }
 
   // 2. Hero parallax (scroll)
   const heroBg = document.getElementById('heroBg');
