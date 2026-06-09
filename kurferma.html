@@ -944,27 +944,66 @@ window.addEventListener('load', function() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
 
-  // 0. Splash intro
-  const splash = document.getElementById('splash');
+  // 0. Splash intro — walking chicken
+  var splash = document.getElementById('splash');
   if (splash) {
-    const splashLogo    = splash.querySelector('#splash-logo-wrap img');
-    const splashTitle   = document.getElementById('splash-title');
-    const splashTagline = document.getElementById('splash-tagline');
-    const done = function() {
-      gsap.to(splash, { opacity: 0, duration: 0.5, ease: 'power2.in', onComplete: function() {
-        splash.remove();
-        document.body.classList.remove('splash-active');
-      }});
-    };
-    if (splashLogo) gsap.set(splashLogo, { scale: 0.08, opacity: 0 });
+    var splashLogoWrap = document.getElementById('splash-logo-wrap');
+    var splashLogo     = splash.querySelector('#splash-logo-wrap img');
+    var splashTitle    = document.getElementById('splash-title');
+    var splashTagline  = document.getElementById('splash-tagline');
+
+    if (splashLogo)    gsap.set(splashLogo,    { opacity: 0, scale: 0.8 });
     if (splashTitle)   gsap.set(splashTitle,   { opacity: 0, y: 20 });
     if (splashTagline) gsap.set(splashTagline, { opacity: 0, y: 10 });
-    gsap.timeline({ onComplete: done })
-      .to(splashLogo,    { scale: 1, opacity: 1, duration: 2.4, ease: 'power4.out' })
-      .to(splashTitle,   { opacity: 1, y: 0,     duration: 1.1, ease: 'power3.out' }, '-=1.0')
-      .to(splashTagline, { opacity: 1, y: 0,     duration: 0.9, ease: 'power3.out' }, '-=0.6')
+
+    // Logo center coordinates (logo is laid out even with opacity:0)
+    var wr     = splashLogoWrap ? splashLogoWrap.getBoundingClientRect() : null;
+    var logoCX = wr ? wr.left + wr.width  / 2 : window.innerWidth  / 2;
+    var logoCY = wr ? wr.top  + wr.height / 2 : window.innerHeight / 2;
+    var eSize  = 72; // approx emoji half-size px
+
+    // Chicken element (position:fixed, top:0 left:0, moved with gsap x/y)
+    var chick = document.createElement('div');
+    chick.style.cssText = 'position:fixed;top:0;left:0;font-size:5rem;line-height:1;z-index:99995;pointer-events:none;';
+    chick.textContent = '🐓';
+    splash.appendChild(chick);
+    gsap.set(chick, { x: window.innerWidth + 60, y: logoCY - eSize, scaleX: -1, opacity: 0 });
+
+    // Dotted ring at logo position
+    var ring = document.createElement('div');
+    var rs = 180;
+    ring.style.cssText = 'position:fixed;top:0;left:0;width:'+rs+'px;height:'+rs+'px;border-radius:50%;border:2px dashed rgba(130,175,55,0.7);z-index:99994;opacity:0;';
+    splash.appendChild(ring);
+    gsap.set(ring, { x: logoCX - rs/2, y: logoCY - rs/2 });
+
+    var splashDone = function() {
+      gsap.to(splash, { opacity: 0, duration: 0.55, ease: 'power2.in', onComplete: function() {
+        splash.remove(); document.body.classList.remove('splash-active');
+      }});
+    };
+
+    gsap.timeline({ onComplete: splashDone })
+      // 1. Ring spins into view
+      .to(ring, { opacity: 1, rotation: 360, duration: 1.0, ease: 'power2.out' })
+      // 2. Chicken appears, walks left with bobbing
+      .set(chick, { opacity: 1 }, '-=0.3')
+      .add('walk')
+      .to(chick, { x: logoCX - eSize, duration: 2.4, ease: 'power2.inOut' }, 'walk')
+      .to(chick, { y: logoCY - eSize - 14, duration: 0.28, ease: 'sine.inOut', yoyo: true, repeat: 8 }, 'walk')
+      // 3. Arrives — bounce
+      .to(chick, { scale: 1.25, duration: 0.18, ease: 'power2.out' })
+      .to(chick, { scale: 1.0,  duration: 0.22, ease: 'power2.in'  })
+      // 4. Shrinks into ring → logo pops out
+      .to(chick, { scale: 0, opacity: 0, duration: 0.5, ease: 'back.in(2)' })
+      .to(ring,  { scale: 0, opacity: 0, duration: 0.35, ease: 'power2.in' }, '-=0.35')
+      .to(splashLogo || splashLogoWrap, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(2)' }, '-=0.1')
+      // 5. Title and tagline
+      .to(splashTitle,   { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.2')
+      .to(splashTagline, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+      // 6. Hold
       .to({}, { duration: 1.1 })
-      .to('#splash-inner', { scale: 4, opacity: 0, duration: 1.8, ease: 'power4.in', transformOrigin: '50% 50%' });
+      // 7. Zoom away
+      .to('#splash-inner', { scale: 4.5, opacity: 0, duration: 2.0, ease: 'power4.in', transformOrigin: '50% 50%' });
   }
 
   // 2. Hero parallax (scroll)
