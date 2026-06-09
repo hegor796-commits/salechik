@@ -644,8 +644,8 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 
 <script>
 const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
-
 const TG_CHAT  = '1781734613';
+let _srObserver = null, _srFallback = null;
 
 function sendToTelegram(text) {
   return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
