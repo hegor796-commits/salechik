@@ -216,8 +216,8 @@ def build():
 
     print("Generating slogan...")
     slogan = "ЗДОРОВАЯ  ·  ЖИВАЯ  ·  ДОМАШНЯЯ  ПТИЦА  ·  " * 2
-    text_ring = circle_text(slogan, "Lora-Regular.ttf", 66,
-                            cx, cy, 448, -90, MOSS)
+    text_ring = circle_text(slogan, "Lora-Regular.ttf", 48,
+                            cx, cy, 432, -90, MOSS)
     els.append(f'<g id="text-ring">{text_ring}</g>')
 
     svg = (f'<?xml version="1.0" encoding="UTF-8"?>'
