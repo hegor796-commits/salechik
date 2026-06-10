@@ -297,12 +297,15 @@ body.splash-active { overflow:hidden; }
 #splash-logo-wrap img { width:200px; height:200px; object-fit:contain; display:block; mix-blend-mode:screen; filter:brightness(1.1); }
 #splash-title { color:#f5c842; font-family:'Segoe UI',Arial,sans-serif; font-size:2.6rem; font-weight:800; letter-spacing:0.06em; opacity:0; }
 #splash-tagline { color:rgba(255,255,255,0.5); font-family:'Segoe UI',Arial,sans-serif; font-size:0.85rem; letter-spacing:0.22em; text-transform:uppercase; opacity:0; }
+/* Splash SVG wrapper — explicit sizing so it actually fills screen */
+#splash-svg-wrap { width:min(94vw,88vh); height:min(94vw,88vh); position:relative; flex-shrink:0; }
+#splash-svg-wrap svg { width:100%; height:100%; }
 /* Initial hidden states — prevent flash before GSAP loads */
 #splash [id^="tick-"] { opacity:0; }
 #splash #circle-bg { opacity:0; }
 #splash #rings-deco { opacity:0; }
 #splash #dots-ring circle { opacity:0; }
-#splash #tail, #splash #body, #splash #head, #splash #legs { transform:translateX(850px); opacity:1; }
+#splash #tail, #splash #body, #splash #head, #splash #legs { opacity:0; }
 #splash #wheat, #splash #text-top, #splash #text-ring { opacity:0; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -1023,8 +1026,8 @@ window.addEventListener('load', function() {
     gsap.set('#rings-deco',    { opacity: 0, scale: 0.7, svgOrigin: '700 700' });
     gsap.set('#dots-ring',     { opacity: 0 });
     gsap.set('#dots-ring circle', { opacity: 0 });
-    // Курица стоит у правого края кольца, видима сразу — входит без fade
-    gsap.set(chicken, { x: 850, opacity: 1 });
+    // Курица у правого края кольца, скрыта — мгновенно появится в начале ходьбы
+    gsap.set(chicken, { x: 850, opacity: 0 });
     gsap.set('#wheat',     { opacity: 0, y: 32 });
     gsap.set('#text-top',  { opacity: 0, y: 20 });
     gsap.set('#text-ring', { opacity: 0, scale: 0.91, svgOrigin: '700 700' });
@@ -1062,8 +1065,9 @@ window.addEventListener('load', function() {
       .to('#logoSvg', { filter: 'brightness(1.4)', duration: 0.1 })
       .to('#logoSvg', { filter: 'brightness(1)',   duration: 0.45, ease: 'power2.out' })
 
-      // ── 6. Курица идёт — настоящая походка ──
+      // ── 6. Курица идёт — мгновенно появляется у края, затем идёт ──
       .add('walk', '+=0.05')
+      .set(chicken, { opacity: 1 }, 'walk')
       .to(chicken, { x: 0, duration: 2.1, ease: 'power1.inOut' }, 'walk')
       // Тело: ритмичное покачивание
       .to('#body', { y: -13, duration: 0.17, ease: 'sine.inOut', yoyo: true, repeat: 12 }, 'walk')
@@ -1094,8 +1098,8 @@ window.addEventListener('load', function() {
       .to('#logoSvg', { filter: 'drop-shadow(0 0 30px rgba(199,152,56,0.7)) brightness(1.12)', duration: 0.75, ease: 'power2.inOut' }, '+=0.4')
       .to('#logoSvg', { filter: 'drop-shadow(0 0 8px rgba(199,152,56,0.2)) brightness(1)',     duration: 0.65, ease: 'power2.inOut' })
 
-      // ── 12. Пауза — читаем текст (2.5 секунды) ──
-      .to({}, { duration: 2.5 })
+      // ── 12. Пауза — читаем текст (4 секунды) ──
+      .to({}, { duration: 4.0 })
 
       // ── 13. Плавный выход ──
       .to('#splash-inner', { scale: 1.07, opacity: 0, duration: 1.2, ease: 'power3.inOut', transformOrigin: '50% 50%' });
