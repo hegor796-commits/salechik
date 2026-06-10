@@ -306,8 +306,7 @@ body.splash-active { overflow:hidden; }
 #splash #rings-deco { opacity:0; }
 #splash #dots-ring circle { opacity:0; }
 #splash #tail, #splash #body, #splash #head, #splash #legs { opacity:0; }
-#splash #wheat { opacity:0; }
-#splash #text-top { opacity:0; }
+#splash #wheat, #splash #text-top { opacity:0; }
 #splash #text-ring path { opacity:0; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -1029,7 +1028,7 @@ window.addEventListener('load', function() {
     gsap.set('#dots-ring circle',{ opacity: 0 });
     gsap.set(chicken,           { x: -850, opacity: 0 });
     gsap.set('#wheat',          { opacity: 0, y: 32 });
-    gsap.set('#text-top',       { opacity: 0, filter: 'blur(14px)' });
+    gsap.set('#text-top',       { opacity: 0, scale: 0.88, svgOrigin: '700 700' });
     gsap.set('#text-ring path', { opacity: 0 });
 
     var splashDone = function() {
@@ -1108,18 +1107,19 @@ window.addEventListener('load', function() {
       // ── 8. Колосья поднимаются ──
       .to('#wheat', { opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.9)' }, '-=0.15')
 
-      // ── 9. XOXLOFF FARM — проявляется из размытости ("из пустоты") ──
+      // ── 9. XOXLOFF FARM — материализуется из центра ──
       .to('#text-top', {
-        opacity: 1, filter: 'blur(0px)',
-        duration: 1.1, ease: 'power2.out'
+        opacity: 1, scale: 1,
+        duration: 1.1, ease: 'power2.out',
+        svgOrigin: '700 700'
       }, '-=0.1')
 
-      // ── 10. Зелёный слоган — разворачивается по кругу из одной точки ──
+      // ── 10. Зелёный слоган — разворачивается по часовой из одной точки ──
       .to('#text-ring path', {
-        opacity: 1, duration: 0.07,
-        stagger: { each: 0.019, from: 'start' },
-        ease: 'power1.out'
-      }, '-=0.6')
+        opacity: 1, duration: 0.06,
+        stagger: { each: 0.018, from: 'start' },
+        ease: 'none'
+      }, '-=0.7')
 
       // ── 11. Золотое сияние ──
       .to('#logoSvg', {
