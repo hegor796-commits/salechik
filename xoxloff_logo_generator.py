@@ -211,13 +211,13 @@ def build():
 
     print("Generating XOXLOFF FARM text...")
     text_top = arc_text("XOXLOFF FARM", "Lora-Regular.ttf", 72,
-                         cx, cy, 378, -150, -30, GOLD, tracking=8)
+                         cx, cy + 40, 345, -150, -30, GOLD, tracking=8)
     els.append(f'<g id="text-top">{text_top}</g>')
 
     print("Generating slogan...")
     slogan = "ЗДОРОВАЯ  ·  ЖИВАЯ  ·  ДОМАШНЯЯ  ПТИЦА  ·  " * 2
     text_ring = circle_text(slogan, "Lora-Regular.ttf", 66,
-                            cx, cy, 453, -90, MOSS)
+                            cx, cy + 30, 453, -90, MOSS)
     els.append(f'<g id="text-ring">{text_ring}</g>')
 
     svg = (f'<?xml version="1.0" encoding="UTF-8"?>'
