@@ -210,8 +210,8 @@ def build():
     els.append(f'<g id="wheat">{"".join(wheat_parts)}</g>')
 
     print("Generating XOXLOFF FARM text...")
-    text_top = arc_text("XOXLOFF FARM", "Lora-Regular.ttf", 72,
-                         cx, cy, 392, -150, -30, GOLD, tracking=8)
+    text_top = arc_text("XOXLOFF FARM", "Lora-Regular.ttf", 62,
+                         cx, cy, 340, -150, -30, GOLD, tracking=10)
     els.append(f'<g id="text-top">{text_top}</g>')
 
     print("Generating slogan...")
