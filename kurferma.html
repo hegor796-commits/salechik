@@ -1026,8 +1026,8 @@ window.addEventListener('load', function() {
     gsap.set('#rings-deco',    { opacity: 0, scale: 0.7, svgOrigin: '700 700' });
     gsap.set('#dots-ring',     { opacity: 0 });
     gsap.set('#dots-ring circle', { opacity: 0 });
-    // Курица у правого края кольца, скрыта — мгновенно появится в начале ходьбы
-    gsap.set(chicken, { x: 850, opacity: 0 });
+    // Курица у левого края кольца, скрыта — мгновенно появится в начале ходьбы
+    gsap.set(chicken, { x: -850, opacity: 0 });
     gsap.set('#wheat',     { opacity: 0, y: 32 });
     gsap.set('#text-top',  { opacity: 0, y: 20 });
     gsap.set('#text-ring', { opacity: 0, scale: 0.91, svgOrigin: '700 700' });
