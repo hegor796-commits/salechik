@@ -297,6 +297,10 @@ body.splash-active { overflow:hidden; }
 #splash-logo-wrap img { width:200px; height:200px; object-fit:contain; display:block; mix-blend-mode:screen; filter:brightness(1.1); }
 #splash-title { color:#f5c842; font-family:'Segoe UI',Arial,sans-serif; font-size:2.6rem; font-weight:800; letter-spacing:0.06em; opacity:0; }
 #splash-tagline { color:rgba(255,255,255,0.5); font-family:'Segoe UI',Arial,sans-serif; font-size:0.85rem; letter-spacing:0.22em; text-transform:uppercase; opacity:0; }
+/* Initial hidden states — prevent flash before GSAP loads */
+#splash [id^="tick-"] { opacity:0; }
+#splash #tail, #splash #body, #splash #head, #splash #legs { transform: translateX(1600px); }
+#splash #wheat, #splash #text-top, #splash #text-ring { opacity:0; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
