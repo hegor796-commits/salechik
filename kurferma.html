@@ -306,7 +306,9 @@ body.splash-active { overflow:hidden; }
 #splash #rings-deco { opacity:0; }
 #splash #dots-ring circle { opacity:0; }
 #splash #tail, #splash #body, #splash #head, #splash #legs { opacity:0; }
-#splash #wheat, #splash #text-top, #splash #text-ring { opacity:0; }
+#splash #wheat { opacity:0; }
+#splash #text-top { opacity:0; }
+#splash #text-ring path { opacity:0; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -1021,16 +1023,14 @@ window.addEventListener('load', function() {
     var chicken = ['#tail','#body','#head','#legs'];
 
     // ── Начальные состояния ──
-    gsap.set('[id^="tick-"]',  { opacity: 0, scale: 0, svgOrigin: '700 700' });
-    gsap.set('#circle-bg',     { opacity: 0, scale: 0, svgOrigin: '700 700' });
-    gsap.set('#rings-deco',    { opacity: 0, scale: 0.7, svgOrigin: '700 700' });
-    gsap.set('#dots-ring',     { opacity: 0 });
-    gsap.set('#dots-ring circle', { opacity: 0 });
-    // Курица у левого края кольца, скрыта — мгновенно появится в начале ходьбы
-    gsap.set(chicken, { x: -850, opacity: 0 });
-    gsap.set('#wheat',     { opacity: 0, y: 32 });
-    gsap.set('#text-top',  { opacity: 0, y: 20 });
-    gsap.set('#text-ring', { opacity: 0, scale: 0.91, svgOrigin: '700 700' });
+    gsap.set('[id^="tick-"]',   { opacity: 0, scale: 0, svgOrigin: '700 700' });
+    gsap.set('#circle-bg',      { opacity: 0, scale: 0, svgOrigin: '700 700' });
+    gsap.set('#rings-deco',     { opacity: 0, scale: 0.7, svgOrigin: '700 700' });
+    gsap.set('#dots-ring circle',{ opacity: 0 });
+    gsap.set(chicken,           { x: -850, opacity: 0 });
+    gsap.set('#wheat',          { opacity: 0, y: 32 });
+    gsap.set('#text-top',       { opacity: 0, filter: 'blur(14px)' });
+    gsap.set('#text-ring path', { opacity: 0 });
 
     var splashDone = function() {
       gsap.to(splash, {
@@ -1050,55 +1050,88 @@ window.addEventListener('load', function() {
       // ── 3. Золотые точки загораются по кругу ──
       .to('#dots-ring circle', {
         opacity: 1, duration: 0.04,
-        stagger: { each: 0.016, from: 'start' },
-        ease: 'none'
+        stagger: { each: 0.016, from: 'start' }, ease: 'none'
       }, '-=0.05')
 
-      // ── 4. Зубчатое кольцо разворачивается поверх ──
+      // ── 4. Зубчатое кольцо разворачивается ──
       .to('[id^="tick-"]', {
         opacity: 1, scale: 1, duration: 0.42,
         stagger: { each: 0.006, from: 'start' },
         ease: 'back.out(2.2)', svgOrigin: '700 700'
       }, '-=0.55')
 
-      // ── 5. Вспышка — "кольцо ожило" ──
+      // ── 5. Вспышка ──
       .to('#logoSvg', { filter: 'brightness(1.4)', duration: 0.1 })
       .to('#logoSvg', { filter: 'brightness(1)',   duration: 0.45, ease: 'power2.out' })
 
-      // ── 6. Курица идёт — мгновенно появляется у края, затем идёт ──
+      // ── 6. Петух идёт — живая многослойная походка ──
       .add('walk', '+=0.05')
       .set(chicken, { opacity: 1 }, 'walk')
-      .to(chicken, { x: 0, duration: 2.1, ease: 'power1.inOut' }, 'walk')
-      // Тело: ритмичное покачивание
-      .to('#body', { y: -13, duration: 0.17, ease: 'sine.inOut', yoyo: true, repeat: 12 }, 'walk')
-      // Лапы: быстрые маленькие шаги
-      .to('#legs', { y: -8, duration: 0.12, ease: 'power2.out', yoyo: true, repeat: 17 }, 'walk')
-      // Голова: клюющий наклон вперёд-вниз
-      .to('#head', { rotation: -14, y: 8, duration: 0.21, ease: 'sine.inOut', yoyo: true, repeat: 9, svgOrigin: '686 750' }, 'walk')
-      // Хвост: широкое плавное качание
-      .to('#tail', { rotation: 11, duration: 0.35, ease: 'sine.inOut', yoyo: true, repeat: 5, svgOrigin: '640 800' }, 'walk')
 
-      // ── 7. Курица встаёт на место — прыжок и приземление ──
-      .to(chicken, { y: -24, duration: 0.12, ease: 'power2.out' })
+      // Основное движение
+      .to(chicken, { x: 0, duration: 2.2, ease: 'power1.inOut' }, 'walk')
+
+      // Тело: вверх-вниз + лёгкий крен вперёд (главный ритм ходьбы)
+      .to('#body', {
+        y: -14, rotation: 5, duration: 0.25,
+        ease: 'sine.inOut', yoyo: true, repeat: 8,
+        transformOrigin: '50% 60%'
+      }, 'walk')
+
+      // Голова: характерное птичье клевание — с задержкой полшага для расфазировки
+      .to('#head', {
+        rotation: 20, y: 10, duration: 0.30,
+        ease: 'sine.inOut', yoyo: true, repeat: 6,
+        transformOrigin: '50% 80%'
+      }, 'walk+=0.13')
+
+      // Хвост: качается в ПРОТИВОФАЗЕ к телу (когда тело вниз — хвост вверх)
+      .to('#tail', {
+        rotation: -16, y: -6, duration: 0.25,
+        ease: 'sine.inOut', yoyo: true, repeat: 8,
+        transformOrigin: '20% 50%'
+      }, 'walk')
+
+      // Лапы: частые мелкие шаги (в два раза быстрее тела)
+      .to('#legs', {
+        y: -10, duration: 0.125,
+        ease: 'power2.out', yoyo: true, repeat: 17,
+        transformOrigin: '50% 0%'
+      }, 'walk')
+
+      // ── 7. Приземление: прыжок → bounce → пульс круга ──
+      .to(chicken, { y: -26, duration: 0.11, ease: 'power2.out' })
       .to(chicken, { y: 0,   duration: 0.55, ease: 'bounce.out' })
-      // Круг слегка пульсирует от "удара"
-      .to('#circle-bg', { scale: 1.015, duration: 0.1, svgOrigin: '700 700', ease: 'power2.out' }, '-=0.45')
-      .to('#circle-bg', { scale: 1,     duration: 0.4, svgOrigin: '700 700', ease: 'elastic.out(1, 0.5)' })
+      .to('#circle-bg', { scale: 1.016, duration: 0.09, svgOrigin: '700 700' }, '-=0.42')
+      .to('#circle-bg', { scale: 1,     duration: 0.5,  svgOrigin: '700 700', ease: 'elastic.out(1, 0.45)' })
 
-      // ── 8. Колосья поднимаются из-за круга ──
-      .to('#wheat', { opacity: 1, y: 0, duration: 0.75, ease: 'back.out(1.9)' }, '-=0.1')
+      // ── 8. Колосья поднимаются ──
+      .to('#wheat', { opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.9)' }, '-=0.15')
 
-      // ── 9. XOXLOFF FARM выплывает снизу ──
-      .to('#text-top', { opacity: 1, y: 0, duration: 0.65, ease: 'back.out(1.5)' }, '-=0.3')
+      // ── 9. XOXLOFF FARM — проявляется из размытости ("из пустоты") ──
+      .to('#text-top', {
+        opacity: 1, filter: 'blur(0px)',
+        duration: 1.1, ease: 'power2.out'
+      }, '-=0.1')
 
-      // ── 10. Кольцо слогана разворачивается из центра ──
-      .to('#text-ring', { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', svgOrigin: '700 700' }, '-=0.3')
+      // ── 10. Зелёный слоган — разворачивается по кругу из одной точки ──
+      .to('#text-ring path', {
+        opacity: 1, duration: 0.07,
+        stagger: { each: 0.019, from: 'start' },
+        ease: 'power1.out'
+      }, '-=0.6')
 
       // ── 11. Золотое сияние ──
-      .to('#logoSvg', { filter: 'drop-shadow(0 0 30px rgba(199,152,56,0.7)) brightness(1.12)', duration: 0.75, ease: 'power2.inOut' }, '+=0.4')
-      .to('#logoSvg', { filter: 'drop-shadow(0 0 8px rgba(199,152,56,0.2)) brightness(1)',     duration: 0.65, ease: 'power2.inOut' })
+      .to('#logoSvg', {
+        filter: 'drop-shadow(0 0 28px rgba(199,152,56,0.65)) brightness(1.1)',
+        duration: 0.7, ease: 'power2.inOut'
+      }, '+=0.35')
+      .to('#logoSvg', {
+        filter: 'drop-shadow(0 0 6px rgba(199,152,56,0.15)) brightness(1)',
+        duration: 0.6, ease: 'power2.inOut'
+      })
 
-      // ── 12. Пауза — читаем текст (4 секунды) ──
+      // ── 12. Пауза — читаем текст ──
       .to({}, { duration: 4.0 })
 
       // ── 13. Плавный выход ──
