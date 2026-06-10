@@ -299,7 +299,7 @@ body.splash-active { overflow:hidden; }
 #splash-tagline { color:rgba(255,255,255,0.5); font-family:'Segoe UI',Arial,sans-serif; font-size:0.85rem; letter-spacing:0.22em; text-transform:uppercase; opacity:0; }
 /* Initial hidden states — prevent flash before GSAP loads */
 #splash [id^="tick-"] { opacity:0; }
-#splash #tail, #splash #body, #splash #head, #splash #legs { transform: translateX(1600px); }
+#splash #tail, #splash #body, #splash #head, #splash #legs { transform:translateX(1600px); opacity:0; }
 #splash #wheat, #splash #text-top, #splash #text-ring { opacity:0; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -1012,50 +1012,74 @@ window.addEventListener('load', function() {
   // 0. Splash intro — SVG logo animation
   var splash = document.getElementById('splash');
   if (splash) {
-    var svgEl = document.getElementById('logoSvg');
     var chicken = ['#tail','#body','#head','#legs'];
 
-    // Initial states
+    // Sync GSAP initial states with CSS pre-hide
     gsap.set('[id^="tick-"]', { opacity: 0, scale: 0, svgOrigin: '700 700' });
-    gsap.set(chicken, { x: 1600 });
-    gsap.set(['#wheat','#text-top','#text-ring'], { opacity: 0 });
+    gsap.set(chicken, { x: 1600, opacity: 0 });
+    gsap.set('#wheat',     { opacity: 0, y: 28 });
+    gsap.set('#text-top',  { opacity: 0, y: 22 });
+    gsap.set('#text-ring', { opacity: 0, scale: 0.92, svgOrigin: '700 700' });
 
     var splashDone = function() {
-      gsap.to(splash, { opacity: 0, duration: 0.7, ease: 'power2.in', onComplete: function() {
-        splash.remove(); document.body.classList.remove('splash-active');
-      }});
+      gsap.to(splash, {
+        opacity: 0, duration: 0.9, ease: 'power2.inOut',
+        onComplete: function() { splash.remove(); document.body.classList.remove('splash-active'); }
+      });
     };
 
     gsap.timeline({ onComplete: splashDone })
-      // 1. Tick ring appears segment by segment
+
+      // ── 1. Ring сегменты вырастают по часовой стрелке ──
       .to('[id^="tick-"]', {
         opacity: 1, scale: 1,
-        duration: 0.6,
-        stagger: { each: 0.006, from: 'start' },
-        ease: 'back.out(2)',
+        duration: 0.5,
+        stagger: { each: 0.007, from: 'start' },
+        ease: 'back.out(2.2)',
         svgOrigin: '700 700'
       })
-      // 2. Pause after ring
-      .to({}, { duration: 0.3 })
-      // 3. Chicken walks in from right with bob
-      .add('walk')
-      .to(chicken, { x: 0, duration: 2.2, ease: 'power2.inOut' }, 'walk')
-      .to('#body',  { y: -18, duration: 0.24, ease: 'sine.inOut', yoyo: true, repeat: 8 }, 'walk')
-      .to('#tail',  { rotation: 6, duration: 0.28, ease: 'sine.inOut', yoyo: true, repeat: 7, svgOrigin: '620 800' }, 'walk')
-      .to('#head',  { y: -10, duration: 0.28, ease: 'sine.inOut', yoyo: true, repeat: 7 }, 'walk')
-      .to('#legs',  { y: 0,   duration: 0.24, ease: 'sine.inOut', yoyo: true, repeat: 8 }, 'walk')
-      // 4. Chicken arrives — bounce
-      .to(chicken, { y: -22, duration: 0.18, ease: 'power2.out' })
-      .to(chicken, { y: 0,   duration: 0.35, ease: 'bounce.out' })
-      // 5. Wheat fans out
-      .to('#wheat', { opacity: 1, duration: 0.6, ease: 'power2.out' })
-      // 6. Text appears
-      .to('#text-top',  { opacity: 1, duration: 0.7, ease: 'power2.out' })
-      .to('#text-ring', { opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.4')
-      // 7. Hold
-      .to({}, { duration: 1.2 })
-      // 8. Zoom away
-      .to('#splash-inner', { scale: 5, opacity: 0, duration: 2.2, ease: 'power4.in', transformOrigin: '50% 50%' });
+      .to({}, { duration: 0.15 })
+
+      // ── 2. Ring "вспыхивает" — ощущение жизни ──
+      .to('#logoSvg', { filter: 'brightness(1.35)', duration: 0.12, ease: 'none' })
+      .to('#logoSvg', { filter: 'brightness(1)',    duration: 0.4,  ease: 'power2.out' })
+
+      // ── 3. Курица входит справа — синхронная анимация частей тела ──
+      .add('walk', '+=0.08')
+      .to(chicken,  { x: 0, opacity: 1, duration: 1.85, ease: 'power2.inOut' }, 'walk')
+      // Тело покачивается вверх-вниз в такт шагам
+      .to('#body',  { y: -11, duration: 0.19, ease: 'sine.inOut', yoyo: true, repeat: 9 }, 'walk')
+      // Голова клюёт — вперёд и вниз
+      .to('#head',  { y: -8, x: 7, duration: 0.23, ease: 'sine.inOut', yoyo: true, repeat: 7 }, 'walk')
+      // Хвост раскачивается
+      .to('#tail',  { rotation: 9, duration: 0.31, ease: 'sine.inOut', yoyo: true, repeat: 5, svgOrigin: '660 780' }, 'walk')
+      // Лапы перебирают
+      .to('#legs',  { y: -7, duration: 0.14, ease: 'power1.out', yoyo: true, repeat: 13 }, 'walk')
+
+      // ── 4. Приземление — подпрыгивает и оседает ──
+      .to(chicken, { y: -20, duration: 0.13, ease: 'power2.out' })
+      .to(chicken, { y: 0,   duration: 0.5,  ease: 'bounce.out' })
+
+      // ── 5. Удар — лёгкая пульсация кольца ──
+      .to('#logoSvg', { scale: 1.018, duration: 0.1,  ease: 'power2.out',         transformOrigin: '50% 50%' }, '-=0.35')
+      .to('#logoSvg', { scale: 1,     duration: 0.45, ease: 'elastic.out(1,0.45)', transformOrigin: '50% 50%' })
+
+      // ── 6. Колосья поднимаются снизу ──
+      .to('#wheat', { opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.7)' }, '-=0.2')
+
+      // ── 7. Название "XOXLOFF FARM" выплывает снизу ──
+      .to('#text-top', { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)' }, '-=0.35')
+
+      // ── 8. Кольцо слогана разворачивается ──
+      .to('#text-ring', { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out', svgOrigin: '700 700' }, '-=0.3')
+
+      // ── 9. Золотое свечение — момент гордости ──
+      .to('#logoSvg', { filter: 'drop-shadow(0 0 24px rgba(199,152,56,0.6)) brightness(1.1)', duration: 0.65, ease: 'power2.inOut' }, '+=0.25')
+      .to('#logoSvg', { filter: 'drop-shadow(0 0 4px rgba(199,152,56,0.1)) brightness(1)',   duration: 0.55, ease: 'power2.inOut' })
+      .to({}, { duration: 0.65 })
+
+      // ── 10. Выход — плавно растворяется, слегка увеличиваясь ──
+      .to('#splash-inner', { scale: 1.08, opacity: 0, duration: 1.1, ease: 'power3.inOut', transformOrigin: '50% 50%' });
   }
 
   // 2. Hero parallax (scroll)
