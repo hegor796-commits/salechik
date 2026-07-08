@@ -26,7 +26,7 @@
 
 window.CATALOG_DATA = {
   siteTitle: "Каталог кур",
-  photoDir: "photos/",
+  photoDir: "katalog/photos/",
 
   breeds: [
     {
