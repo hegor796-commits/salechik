@@ -80,7 +80,6 @@ button { font: inherit; border: 0; background: none; cursor: pointer; color: inh
   padding-right: 44px;
   text-align: center;
 }
-.topbar.home .topbar-title { padding-right: 0; }
 
 /* ─── Контейнер ─── */
 main {
@@ -364,7 +363,8 @@ main {
   function setTop(title, isHome) {
     topbarTitle.textContent = title;
     document.title = title === DATA.siteTitle ? title : title + " — " + DATA.siteTitle;
-    backBtn.classList.toggle("hidden", !!isHome);
+    backBtn.classList.remove("hidden");
+    backBtn.title = isHome ? "На главную сайта" : "Назад";
     topbar.classList.toggle("home", !!isHome);
   }
 
@@ -480,7 +480,8 @@ main {
   backBtn.addEventListener("click", function () {
     var parts = location.hash.replace(/^#\/?/, "").split("/");
     if (parts[0] === "ad") location.hash = "#breed/" + parts[1];
-    else location.hash = "";
+    else if (parts[0] === "breed") location.hash = "";
+    else window.location.href = "../index.html"; // с главной каталога — на сайт
   });
 
   window.addEventListener("hashchange", route);
