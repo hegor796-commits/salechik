@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Каталог породных кур: Брама, Кохинхин, Виандот, Китайская шёлковая и другие. Породы и окрасы с фото.">
+<title>Каталог кур</title>
+<style>
+:root {
+  --brown: #7c4a1e;
+  --brown-light: #a0622e;
+  --yellow: #f5c842;
+  --cream: #fdf6e3;
+  --cream-dark: #f0e6c8;
+  --text: #2d1f0f;
+  --text-muted: #8a7360;
+  --white: #fff;
+  --ph-bg: #d9d4c9;
+  --ph-text: #77705f;
+  --shadow: 0 2px 10px rgba(124,74,30,0.12);
+  --radius: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font: inherit; border: 0; background: none; cursor: pointer; color: inherit; }
+
+/* ─── Шапка ─── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--brown);
+  color: var(--white);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  padding-top: env(safe-area-inset-top);
+}
+.topbar-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 52px;
+  padding: 6px 8px;
+}
+.back-btn {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--yellow);
+  -webkit-tap-highlight-color: transparent;
+}
+.back-btn:active { background: rgba(255,255,255,0.15); }
+.back-btn.hidden { visibility: hidden; }
+.topbar-title {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 44px;
+  text-align: center;
+}
+.topbar.home .topbar-title { padding-right: 0; }
+
+/* ─── Контейнер ─── */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 14px 12px calc(32px + env(safe-area-inset-bottom));
+}
+
+.section-hint {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 2px 4px 12px;
+}
+
+/* ─── Главная: список пород ─── */
+.breed-list { display: flex; flex-direction: column; gap: 10px; }
+.breed-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+.breed-row:active { background: var(--cream-dark); }
+.breed-thumb {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ph-bg);
+}
+.breed-info { flex: 1; min-width: 0; }
+.breed-name { font-weight: 700; font-size: 17px; }
+.breed-count { color: var(--text-muted); font-size: 13.5px; margin-top: 2px; }
+.chevron { flex: 0 0 auto; color: var(--brown-light); font-size: 20px; padding-right: 4px; }
+
+/* ─── Порода: сетка карточек-объявлений ─── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 480px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:active { background: var(--cream-dark); }
+.card-img {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--ph-bg);
+  overflow: hidden;
+}
+.photo-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 20px;
+  padding: 2px 8px;
+  pointer-events: none;
+}
+.card-body { padding: 8px 10px 10px; }
+.card-title { font-weight: 600; font-size: 14.5px; line-height: 1.3; }
+
+/* ─── Фото и placeholder ─── */
+.photo-box { width: 100%; height: 100%; position: relative; }
+.photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--ph-bg);
+  color: var(--ph-text);
+  text-align: center;
+  padding: 6px;
+}
+.ph .ph-icon { font-size: 26px; opacity: 0.6; }
+.ph .ph-num { font-weight: 700; font-size: 15px; }
+.ph .ph-note { font-size: 11px; opacity: 0.8; }
+.gallery .ph .ph-icon { font-size: 44px; }
+.gallery .ph .ph-num { font-size: 22px; }
+.gallery .ph .ph-note { font-size: 13px; }
+
+/* ─── Объявление ─── */
+.ad-page { display: flex; flex-direction: column; gap: 14px; }
+
+.gallery {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ph-bg);
+  box-shadow: var(--shadow);
+}
+.gallery-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 4 / 3;
+}
+.gallery-counter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 13px;
+  border-radius: 20px;
+  padding: 3px 10px;
+  pointer-events: none;
+}
+.gallery-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.gallery-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 0 3px rgba(0,0,0,0.4);
+  transition: background 0.2s, transform 0.2s;
+}
+.gallery-dots .dot.on { background: var(--yellow); transform: scale(1.25); }
+
+.ad-info {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+.ad-crumbs { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+.ad-crumbs a { color: var(--brown-light); }
+.ad-title { font-size: 21px; font-weight: 800; line-height: 1.25; }
+.ad-price {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--brown);
+}
+
+.ad-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+.ad-section h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.ad-desc { white-space: pre-line; font-size: 15.5px; }
+.ad-desc.empty { color: var(--text-muted); font-style: italic; }
+
+.not-found {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar home" id="topbar">
+  <div class="topbar-inner">
+    <button class="back-btn hidden" id="backBtn" aria-label="Назад">&#10094;</button>
+    <div class="topbar-title" id="topbarTitle">Каталог кур</div>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  var DATA = window.CATALOG_DATA;
+  var PHOTO_DIR = DATA.photoDir || "photos/";
+  var EXTS = ["jpg", "jpeg", "png", "webp", "JPG"];
+
+  var view = document.getElementById("view");
+  var topbar = document.getElementById("topbar");
+  var topbarTitle = document.getElementById("topbarTitle");
+  var backBtn = document.getElementById("backBtn");
+
+  /* ── утилиты ── */
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function plural(n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
+
+  function findBreed(id) {
+    for (var i = 0; i < DATA.breeds.length; i++)
+      if (DATA.breeds[i].id === id) return DATA.breeds[i];
+    return null;
+  }
+
+  function findVariant(breed, id) {
+    if (!breed) return null;
+    for (var i = 0; i < breed.variants.length; i++)
+      if (breed.variants[i].id === id) return breed.variants[i];
+    return null;
+  }
+
+  /* ── фото: <img> с перебором расширений, при неудаче — серый placeholder с номером ── */
+
+  function photoHTML(num) {
+    return '<div class="photo-box">' +
+      '<img src="' + PHOTO_DIR + num + "." + EXTS[0] + '"' +
+      ' data-num="' + num + '" data-ext="0" loading="lazy" alt="Фото ' + num + '">' +
+      "</div>";
+  }
+
+  function placeholderHTML(num) {
+    return '<div class="ph">' +
+      '<div class="ph-icon">&#128247;</div>' +
+      '<div class="ph-num">№ ' + num + "</div>" +
+      '<div class="ph-note">фото ' + num + ".jpg</div>" +
+      "</div>";
+  }
+
+  // Один обработчик на весь документ: если файл не найден,
+  // пробуем следующее расширение, потом показываем placeholder.
+  document.addEventListener("error", function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== "IMG" || !img.dataset.num) return;
+    var next = parseInt(img.dataset.ext, 10) + 1;
+    if (next < EXTS.length) {
+      img.dataset.ext = next;
+      img.src = PHOTO_DIR + img.dataset.num + "." + EXTS[next];
+    } else {
+      img.parentNode.innerHTML = placeholderHTML(img.dataset.num);
+    }
+  }, true);
+
+  /* ── страницы ── */
+
+  function setTop(title, isHome) {
+    topbarTitle.textContent = title;
+    document.title = title === DATA.siteTitle ? title : title + " — " + DATA.siteTitle;
+    backBtn.classList.toggle("hidden", !!isHome);
+    topbar.classList.toggle("home", !!isHome);
+  }
+
+  function renderHome() {
+    setTop(DATA.siteTitle, true);
+    var html = '<p class="section-hint">Выберите породу</p><div class="breed-list">';
+    DATA.breeds.forEach(function (b) {
+      var n = b.variants.length;
+      var firstPhoto = b.variants.length && b.variants[0].photos.length ? b.variants[0].photos[0] : null;
+      html += '<a class="breed-row" href="#breed/' + b.id + '">' +
+        '<div class="breed-thumb">' + (firstPhoto !== null ? photoHTML(firstPhoto) : "") + "</div>" +
+        '<div class="breed-info">' +
+          '<div class="breed-name">' + esc(b.name) + "</div>" +
+          '<div class="breed-count">' + n + " " + plural(n, "окрас", "окраса", "окрасов") + "</div>" +
+        "</div>" +
+        '<div class="chevron">&#10095;</div>' +
+        "</a>";
+    });
+    html += "</div>";
+    view.innerHTML = html;
+  }
+
+  function renderBreed(breedId) {
+    var breed = findBreed(breedId);
+    if (!breed) return renderNotFound();
+    setTop(breed.name, false);
+    var html = '<p class="section-hint">Выберите окрас</p><div class="card-grid">';
+    breed.variants.forEach(function (v) {
+      var first = v.photos.length ? v.photos[0] : null;
+      html += '<a class="card" href="#ad/' + breed.id + "/" + v.id + '">' +
+        '<div class="card-img">' +
+          (first !== null ? photoHTML(first) : placeholderHTML("—")) +
+          (v.photos.length > 1 ? '<div class="photo-badge">&#128247; ' + v.photos.length + "</div>" : "") +
+        "</div>" +
+        '<div class="card-body"><div class="card-title">' + esc(v.name) + "</div></div>" +
+        "</a>";
+    });
+    html += "</div>";
+    view.innerHTML = html;
+  }
+
+  function renderAd(breedId, variantId) {
+    var breed = findBreed(breedId);
+    var v = findVariant(breed, variantId);
+    if (!v) return renderNotFound();
+    setTop(breed.name, false);
+
+    var slides = v.photos.map(function (num) {
+      return '<div class="gallery-slide">' + photoHTML(num) + "</div>";
+    }).join("");
+
+    var dots = v.photos.map(function (_, i) {
+      return '<div class="dot' + (i === 0 ? " on" : "") + '"></div>';
+    }).join("");
+
+    var many = v.photos.length > 1;
+
+    var html = '<div class="ad-page">' +
+      '<div class="gallery">' +
+        '<div class="gallery-track" id="gtrack">' + slides + "</div>" +
+        (many ? '<div class="gallery-counter" id="gcounter">1/' + v.photos.length + "</div>" : "") +
+        (many ? '<div class="gallery-dots" id="gdots">' + dots + "</div>" : "") +
+      "</div>" +
+      '<div class="ad-info">' +
+        '<div class="ad-crumbs"><a href="#">Каталог</a> &rsaquo; <a href="#breed/' + breed.id + '">' + esc(breed.name) + "</a></div>" +
+        '<h1 class="ad-title">' + esc(v.name) + "</h1>" +
+        (v.price ? '<div class="ad-price">' + esc(v.price) + "</div>" : "") +
+      "</div>" +
+      '<div class="ad-section">' +
+        "<h2>Описание</h2>" +
+        (v.description
+          ? '<div class="ad-desc">' + esc(v.description) + "</div>"
+          : '<div class="ad-desc empty">Описание появится позже.</div>') +
+      "</div>" +
+      "</div>";
+    view.innerHTML = html;
+
+    if (many) {
+      var track = document.getElementById("gtrack");
+      var counter = document.getElementById("gcounter");
+      var dotEls = document.getElementById("gdots").children;
+      var ticking = false;
+      track.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var i = Math.round(track.scrollLeft / track.clientWidth);
+          i = Math.max(0, Math.min(i, v.photos.length - 1));
+          counter.textContent = (i + 1) + "/" + v.photos.length;
+          for (var k = 0; k < dotEls.length; k++)
+            dotEls[k].classList.toggle("on", k === i);
+        });
+      }, { passive: true });
+    }
+  }
+
+  function renderNotFound() {
+    setTop(DATA.siteTitle, false);
+    view.innerHTML = '<div class="not-found">Страница не найдена.<br><a href="#" style="color:var(--brown-light)">Вернуться в каталог</a></div>';
+  }
+
+  /* ── маршрутизация по hash: "" | #breed/<id> | #ad/<breed>/<variant> ── */
+
+  function route() {
+    var parts = location.hash.replace(/^#\/?/, "").split("/");
+    if (parts[0] === "breed" && parts[1]) renderBreed(parts[1]);
+    else if (parts[0] === "ad" && parts[1] && parts[2]) renderAd(parts[1], parts[2]);
+    else renderHome();
+    window.scrollTo(0, 0);
+  }
+
+  backBtn.addEventListener("click", function () {
+    var parts = location.hash.replace(/^#\/?/, "").split("/");
+    if (parts[0] === "ad") location.hash = "#breed/" + parts[1];
+    else location.hash = "";
+  });
+
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
