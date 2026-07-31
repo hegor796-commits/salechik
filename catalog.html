@@ -208,7 +208,39 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 /* Ripple */
 .ripple-host { position: relative; overflow: hidden; }
 .ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.5s linear forwards; }
-  </style>
+  
+/* ── Каталог пород ── */
+.catalog-crumbs { margin-bottom: 26px; }
+.back-link { display:inline-flex; align-items:center; gap:8px; font-weight:600; color:var(--brown); background:var(--white); border-radius:50px; padding:8px 20px; box-shadow:var(--shadow); transition: transform 0.2s, box-shadow 0.2s; }
+.back-link:hover { transform: translateX(-3px); color:var(--brown-light); }
+a.chicken-card { color: var(--text); display:flex; }
+a.chicken-card:hover { color: var(--text); }
+.chicken-card .card-image { overflow:hidden; }
+.card-image img { width:100%; height:100%; object-fit:cover; }
+.card-image .photo-badge { position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.55); color:#fff; font-size:0.8rem; border-radius:20px; padding:2px 10px; }
+.ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:#ddd6c6; color:#8a8172; font-size:1rem; line-height:1.3; }
+.ph .ph-icon { font-size:2.4rem; opacity:0.6; }
+.ph .ph-num { font-weight:700; font-size:1.05rem; }
+.ph .ph-note { font-size:0.75rem; opacity:0.85; }
+#adView { max-width: 760px; margin: 0 auto; display:flex; flex-direction:column; gap:22px; }
+.gallery { position:relative; border-radius:var(--radius); overflow:hidden; background:#ddd6c6; box-shadow:var(--shadow); }
+.gallery-track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.gallery-track::-webkit-scrollbar { display:none; }
+.gallery-slide { flex:0 0 100%; scroll-snap-align:center; aspect-ratio:4/3; }
+.gallery .ph .ph-icon { font-size:3.6rem; }
+.gallery .ph .ph-num { font-size:1.5rem; }
+.gallery .ph .ph-note { font-size:0.9rem; }
+.gallery-counter { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.55); color:#fff; font-size:0.85rem; border-radius:20px; padding:3px 12px; pointer-events:none; }
+.gallery-dots { position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:6px; pointer-events:none; }
+.gallery-dots .dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.55); box-shadow:0 0 3px rgba(0,0,0,0.4); transition:background 0.2s, transform 0.2s; }
+.gallery-dots .dot.on { background:var(--yellow); transform:scale(1.25); }
+.ad-info, .ad-desc-box { background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 26px; }
+.ad-title { font-size:1.55rem; color:var(--brown); line-height:1.3; }
+.ad-price { margin-top:10px; font-size:1.3rem; font-weight:800; color:var(--brown); }
+.ad-desc-box h3 { color:var(--brown); margin-bottom:8px; font-size:1.05rem; }
+.ad-desc { white-space:pre-line; }
+.ad-desc.empty { color:var(--text-muted); font-style:italic; }
+</style>
 </head>
 
 <body>
@@ -233,79 +265,11 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
   <div class="page-hero"><span class="emoji">🐓</span><h1>Каталог редких пород</h1><p>Каждая птица продаётся поштучно с документами и гарантией породы</p></div>
   <section>
     <div class="container">
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">Все породы</button>
-        <button class="filter-btn" data-filter="декоративные">Декоративные</button>
-        <button class="filter-btn" data-filter="продуктивные">Продуктивные</button>
-        <button class="filter-btn" data-filter="экзотические">Экзотические</button>
-        <button class="filter-btn" data-filter="яйцо-цыплята">Яйцо/Цыплята</button>
-      </div>
-      <div class="cards-grid stagger" id="catalogGrid">
+            <div class="catalog-crumbs" id="catCrumbs" style="display:none"></div>
 
-        <div class="chicken-card" data-category="экзотические">
-          <div class="card-image">🖤<span class="card-badge">Редкая</span></div>
-          <div class="card-body"><h3>Аям Чемани</h3><p>Полностью чёрная птица из Индонезии: перья, кожа, гребень, кости — всё чёрное. Одна из самых редких пород в мире.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Индонезия</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 25 000 ₽</div><button class="btn-card" data-order="Аям Чемани">Оставить заявку</button></div></div>
-        </div>
+      <div class="cards-grid stagger" id="catalogGrid"></div>
 
-        <div class="chicken-card" data-category="декоративные">
-          <div class="card-image">🪶</div>
-          <div class="card-body"><h3>Брама Светлая</h3><p>Крупная азиатская порода с пышным оперением до самых когтей. Спокойный нрав, подходит новичкам.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Азия</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 4 500 ₽</div><button class="btn-card" data-order="Брама Светлая">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="декоративные">
-          <div class="card-image">☁️</div>
-          <div class="card-body"><h3>Кохинхин Белый</h3><p>Круглые пушистые куры из Китая. Невероятно мягкое оперение, дружелюбный характер, украшение любого двора.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Китай</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 5 500 ₽</div><button class="btn-card" data-order="Кохинхин Белый">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="экзотические">
-          <div class="card-image">✨<span class="card-badge">Экзотика</span></div>
-          <div class="card-body"><h3>Феникс</h3><p>Японская декоративная порода с хвостом до 1 метра и более. Результат многовековой селекции.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Япония</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 8 000 ₽</div><button class="btn-card" data-order="Феникс">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="декоративные">
-          <div class="card-image">👑</div>
-          <div class="card-body"><h3>Падуан Золотистый</h3><p>Венецианская порода с пышным хохолком. Узнаваема с первого взгляда, настоящий аристократ птичьего двора.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Италия</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 6 000 ₽</div><button class="btn-card" data-order="Падуан Золотистый">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="продуктивные">
-          <div class="card-image">🔘</div>
-          <div class="card-body"><h3>Виандот Серебристый</h3><p>Американская порода с уникальным узорчатым оперением. Хорошая яйценоскость, морозоустойчива.</p>
-          <div class="card-meta"><span class="meta-item">🌍 США</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 4 000 ₽</div><button class="btn-card" data-order="Виандот Серебристый">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="продуктивные">
-          <div class="card-image">🍑</div>
-          <div class="card-body"><h3>Фавероль Лососевый</h3><p>Французская порода с пятью пальцами и баками. Спокойная, продуктивная, с неповторимым окрасом.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Франция</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 3 500 ₽</div><button class="btn-card" data-order="Фавероль Лососевый">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="продуктивные">
-          <div class="card-image">🌾</div>
-          <div class="card-body"><h3>Орпингтон Палевый</h3><p>Британская порода золотисто-палевого цвета. Отличная яйценоскость, мясные качества, добрый нрав.</p>
-          <div class="card-meta"><span class="meta-item">🌍 Великобритания</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 3 800 ₽</div><button class="btn-card" data-order="Орпингтон Палевый">Оставить заявку</button></div></div>
-        </div>
-
-        <div class="chicken-card" data-category="яйцо-цыплята">
-          <div class="card-image">🥚<span class="card-badge">Есть!</span></div>
-          <div class="card-body"><h3>Инкубационное яйцо</h3><p>Инкубационное яйцо редких пород: Аям Чемани, Брама, Кохинхин, Феникс и другие. Оплодотворённость от 95%.</p>
-          <div class="card-meta"><span class="meta-item">✅ от 95% оплодотв.</span><span class="meta-item">📋 Документы</span></div>
-          <div class="card-footer"><div class="price">от 800 ₽/шт</div><button class="btn-card" data-order="Инкубационное яйцо">Оставить заявку</button></div></div>
-        </div>
-
-      </div>
+      <div id="adView" style="display:none"></div>
     </div>
   </section>
 
@@ -337,6 +301,187 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 
 <div class="toast" id="toast"></div>
 
+<script src="katalog/data.js"></script>
+<script>
+// ── Каталог пород: порода → окрас → объявление ──
+(function () {
+  var DATA = window.CATALOG_DATA;
+  if (!DATA) return;
+  var PHOTO_DIR = DATA.photoDir || 'katalog/photos/';
+  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG'];
+
+  var grid = document.getElementById('catalogGrid');
+  var adView = document.getElementById('adView');
+  var crumbs = document.getElementById('catCrumbs');
+  var firstRender = true;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function plural(n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
+  function findBreed(id) {
+    for (var i = 0; i < DATA.breeds.length; i++) if (DATA.breeds[i].id === id) return DATA.breeds[i];
+    return null;
+  }
+  function findVariant(breed, id) {
+    if (!breed) return null;
+    for (var i = 0; i < breed.variants.length; i++) if (breed.variants[i].id === id) return breed.variants[i];
+    return null;
+  }
+
+  function photoHTML(num) {
+    return '<img src="' + PHOTO_DIR + num + '.' + EXTS[0] + '" data-num="' + num + '" data-ext="0" loading="lazy" alt="Фото ' + num + '">';
+  }
+  function placeholderHTML(num) {
+    return '<div class="ph"><div class="ph-icon">&#128247;</div><div class="ph-num">№ ' + num + '</div><div class="ph-note">фото ' + num + '.jpg</div></div>';
+  }
+  // если файла нет — пробуем другие расширения, затем серый placeholder с номером
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.num) return;
+    var next = parseInt(img.dataset.ext, 10) + 1;
+    if (next < EXTS.length) {
+      img.dataset.ext = next;
+      img.src = PHOTO_DIR + img.dataset.num + '.' + EXTS[next];
+    } else {
+      var ph = document.createElement('div');
+      ph.innerHTML = placeholderHTML(img.dataset.num);
+      img.replaceWith(ph.firstChild);
+    }
+  }, true);
+
+  // ступенчатое появление карточек (как у фильтра раньше)
+  function animateCards() {
+    Array.prototype.forEach.call(grid.children, function (card, i) {
+      card.style.animation = 'fadeInUp 0.45s ease both';
+      card.style.animationDelay = (i * 70) + 'ms';
+    });
+  }
+  function animateAd() {
+    Array.prototype.forEach.call(adView.children, function (el, i) {
+      el.style.animation = 'fadeInUp 0.45s ease both';
+      el.style.animationDelay = (i * 100) + 'ms';
+    });
+  }
+
+  function setCrumbs(html) {
+    crumbs.innerHTML = html || '';
+    crumbs.style.display = html ? '' : 'none';
+  }
+
+  function cardHTML(href, imgNum, title, subtitle, badge) {
+    return '<a class="chicken-card" href="' + href + '">' +
+      '<div class="card-image">' +
+        (imgNum !== null ? photoHTML(imgNum) : placeholderHTML('—')) +
+        (badge ? '<span class="photo-badge">&#128247; ' + badge + '</span>' : '') +
+      '</div>' +
+      '<div class="card-body"><h3>' + esc(title) + '</h3><p>' + esc(subtitle) + '</p></div>' +
+      '</a>';
+  }
+
+  function renderBreeds() {
+    setCrumbs('');
+    adView.style.display = 'none';
+    grid.style.display = '';
+    grid.innerHTML = DATA.breeds.map(function (b) {
+      var n = b.variants.length;
+      var first = b.variants.length && b.variants[0].photos.length ? b.variants[0].photos[0] : null;
+      return cardHTML('#breed/' + b.id, first, b.name, n + ' ' + plural(n, 'окрас', 'окраса', 'окрасов'), '');
+    }).join('');
+    if (!firstRender) animateCards();
+  }
+
+  function renderBreed(breedId) {
+    var breed = findBreed(breedId);
+    if (!breed) return renderBreeds();
+    setCrumbs('<a class="back-link" href="#">&#10094; Все породы</a>');
+    adView.style.display = 'none';
+    grid.style.display = '';
+    grid.innerHTML = breed.variants.map(function (v) {
+      var first = v.photos.length ? v.photos[0] : null;
+      return cardHTML('#ad/' + breed.id + '/' + v.id, first, v.name,
+        v.photos.length + ' фото', v.photos.length > 1 ? v.photos.length : '');
+    }).join('');
+    animateCards();
+  }
+
+  function renderAd(breedId, variantId) {
+    var breed = findBreed(breedId);
+    var v = findVariant(breed, variantId);
+    if (!v) return renderBreeds();
+    setCrumbs('<a class="back-link" href="#breed/' + breed.id + '">&#10094; ' + esc(breed.name) + '</a>');
+    grid.style.display = 'none';
+    adView.style.display = '';
+
+    var slides = v.photos.map(function (num) {
+      return '<div class="gallery-slide">' + photoHTML(num) + '</div>';
+    }).join('');
+    var dots = v.photos.map(function (_, i) {
+      return '<div class="dot' + (i === 0 ? ' on' : '') + '"></div>';
+    }).join('');
+    var many = v.photos.length > 1;
+
+    adView.innerHTML =
+      '<div class="gallery">' +
+        '<div class="gallery-track" id="gtrack">' + slides + '</div>' +
+        (many ? '<div class="gallery-counter" id="gcounter">1/' + v.photos.length + '</div>' : '') +
+        (many ? '<div class="gallery-dots" id="gdots">' + dots + '</div>' : '') +
+      '</div>' +
+      '<div class="ad-info">' +
+        '<h1 class="ad-title">' + esc(v.name) + '</h1>' +
+        (v.price ? '<div class="ad-price">' + esc(v.price) + '</div>' : '') +
+      '</div>' +
+      '<div class="ad-desc-box">' +
+        '<h3>Описание</h3>' +
+        (v.description
+          ? '<div class="ad-desc">' + esc(v.description) + '</div>'
+          : '<div class="ad-desc empty">Описание появится позже.</div>') +
+      '</div>' +
+      '<div style="text-align:center"><button type="button" class="btn btn-primary ripple-host" style="display:inline-flex" data-goto="home" data-anchor="order">Оставить заявку</button></div>';
+    animateAd();
+
+    if (many) {
+      var track = document.getElementById('gtrack');
+      var counter = document.getElementById('gcounter');
+      var dotEls = document.getElementById('gdots').children;
+      var ticking = false;
+      track.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var i = Math.round(track.scrollLeft / track.clientWidth);
+          i = Math.max(0, Math.min(i, v.photos.length - 1));
+          counter.textContent = (i + 1) + '/' + v.photos.length;
+          for (var k = 0; k < dotEls.length; k++) dotEls[k].classList.toggle('on', k === i);
+        });
+      }, { passive: true });
+    }
+  }
+
+  function route() {
+    var parts = location.hash.replace(/^#\/?/, '').split('/');
+    if (parts[0] === 'breed' && parts[1]) renderBreed(parts[1]);
+    else if (parts[0] === 'ad' && parts[1] && parts[2]) renderAd(parts[1], parts[2]);
+    else renderBreeds();
+    if (!firstRender) {
+      var top = crumbs.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: Math.max(top, 0) });
+    }
+    firstRender = false;
+  }
+
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
 <script>
 // ── Telegram ──
 const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
@@ -464,19 +609,6 @@ document.addEventListener('click', (e) => {
   } else {
     window.location.href = href;
   }
-});
-// ── Catalog filter ──
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.filter;
-    document.querySelectorAll('#catalogGrid .chicken-card').forEach(card => {
-      const show = cat === 'all' || card.dataset.category === cat;
-      card.style.display = show ? '' : 'none';
-      if (show) { card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'fadeInUp 0.35s ease'; }
-    });
-  });
 });
 // ── Init scroll reveal ──
 document.addEventListener('DOMContentLoaded', () => {
