@@ -33,7 +33,7 @@ window.CATALOG_DATA = {
       id: "brama",
       name: "Брама",
       variants: [
-        { id: "belaya",                 name: "Брама белая",                       photos: [600, 602, 278, 378, 737],      description: "", price: null },
+        { id: "belaya",                 name: "Брама белая",                       photos: [600, 602, 378, 737],           description: "", price: null },
         { id: "belaya-serebro",         name: "Брама белая серебро каймлевая",     photos: [785, 788],                     description: "", price: null },
         { id: "chernaya",               name: "Брама чёрная",                      photos: [251, 384, 387],                description: "", price: null },
         { id: "farforovaya",            name: "Брама фарфоровая (парцелин)",       photos: [606, 676],                     description: "", price: null },

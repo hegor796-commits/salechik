@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>КурФерма — Продажа домашних кур</title>
+  <title>О ферме XOXLOFF — редкие породы кур с 2012 года</title>
+  <meta name="description" content="Хозяйство редких и декоративных пород кур в Краснодарском крае с 2012 года. Чистые племенные линии, документы на каждую птицу, доставка по России, консультации.">
+  <link rel="canonical" href="https://xoxloff-farm.ru/about.html">
+  <meta name="theme-color" content="#7c4a1e">
+  <link rel="icon" type="image/svg+xml" href="/xoxloff_farm_logo.svg">
+  <link rel="apple-touch-icon" href="/xoxloff_farm_logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XOXLOFF farm">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="О ферме XOXLOFF — редкие породы кур с 2012 года">
+  <meta property="og:description" content="Хозяйство редких и декоративных пород кур в Краснодарском крае с 2012 года. Чистые племенные линии, документы на каждую птицу, доставка по России, консультации.">
+  <meta property="og:url" content="https://xoxloff-farm.ru/about.html">
+  <meta property="og:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="О ферме XOXLOFF — редкие породы кур с 2012 года">
+  <meta name="twitter:description" content="Хозяйство редких и декоративных пород кур в Краснодарском крае с 2012 года. Чистые племенные линии, документы на каждую птицу, доставка по России, консультации.">
+  <meta name="twitter:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
   <style>
 :root {
   --brown: #7c4a1e;
@@ -208,6 +224,16 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 /* Ripple */
 .ripple-host { position: relative; overflow: hidden; }
 .ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.5s linear forwards; }
+
+/* Наша жизнь */
+.life-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+.life-item { aspect-ratio: 4/3; border-radius: var(--radius); overflow: hidden; background: #ddd6c6; box-shadow: var(--shadow); position: relative; }
+.life-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.life-item:hover img { transform: scale(1.05); }
+.life-item .ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#8a8172; }
+.life-item .ph-icon { font-size:2.6rem; opacity:0.6; }
+.life-item .ph-num { font-weight:700; font-size:1.05rem; }
+.life-item .ph-note { font-size:0.78rem; opacity:0.85; }
   </style>
 </head>
 
@@ -272,6 +298,12 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
       </div>
     </div>
   </section>
+  <section id="life">
+    <div class="container">
+      <div class="section-title"><h2>Наша жизнь</h2><p>Как живёт наша ферма — птица, будни, забота</p></div>
+      <div class="life-grid stagger" id="lifeGrid"></div>
+    </div>
+  </section>
   <section style="text-align:center;padding:64px 24px;background:linear-gradient(135deg,var(--brown) 0%,#3d1f07 100%);color:var(--white)">
     <div class="container">
       <div style="font-size:3rem;margin-bottom:16px">🛒</div>
@@ -299,18 +331,6 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Telegram ──
-const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
-const TG_CHAT  = '1781734613';
-
-function sendToTelegram(text) {
-  return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: TG_CHAT, text: text, parse_mode: 'HTML' })
-  });
-}
-
 // ── Scroll Reveal ──
 let _srObserver = null;
 let _srFallback = null;
@@ -446,6 +466,31 @@ function animateCounters() {
   });
 }
 document.addEventListener('DOMContentLoaded', animateCounters);
+// ── Наша жизнь: галерея фото фермы ──
+// Чтобы добавить фото — впишите его номер в массив и положите файл в katalog/photos/
+(function () {
+  var LIFE_PHOTOS = [623, 634, 635];
+  var DIR = 'katalog/photos/';
+  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG'];
+  var grid = document.getElementById('lifeGrid');
+  if (!grid) return;
+  grid.innerHTML = LIFE_PHOTOS.map(function (num) {
+    return '<div class="life-item reveal">' +
+      '<img src="' + DIR + num + '.' + EXTS[0] + '" data-num="' + num + '" data-ext="0" loading="lazy" alt="Жизнь фермы ' + num + '">' +
+      '</div>';
+  }).join('');
+  grid.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.num) return;
+    var next = parseInt(img.dataset.ext, 10) + 1;
+    if (next < EXTS.length) {
+      img.dataset.ext = next;
+      img.src = DIR + img.dataset.num + '.' + EXTS[next];
+    } else {
+      img.outerHTML = '<div class="ph"><div class="ph-icon">&#128247;</div><div class="ph-num">№ ' + img.dataset.num + '</div><div class="ph-note">фото ' + img.dataset.num + '.jpg</div></div>';
+    }
+  }, true);
+})();
 // ── Init scroll reveal ──
 document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal(document.body);

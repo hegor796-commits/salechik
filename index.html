@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Редкие породы кур — продажа поштучно с документами</title>
+  <title>Редкие породы кур — продажа поштучно с документами | XOXLOFF farm</title>
+  <meta name="description" content="Ферма редких и декоративных пород кур в Краснодарском крае: Брама, Кохинхин карликовый, Виандот, Китайская шёлковая и другие. Продажа поштучно с документами, доставка по России.">
+  <link rel="canonical" href="https://xoxloff-farm.ru/">
+  <meta name="theme-color" content="#7c4a1e">
+  <link rel="icon" type="image/svg+xml" href="/xoxloff_farm_logo.svg">
+  <link rel="apple-touch-icon" href="/xoxloff_farm_logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XOXLOFF farm">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Редкие породы кур — продажа поштучно с документами | XOXLOFF farm">
+  <meta property="og:description" content="Ферма редких и декоративных пород кур в Краснодарском крае: Брама, Кохинхин карликовый, Виандот, Китайская шёлковая и другие. Продажа поштучно с документами, доставка по России.">
+  <meta property="og:url" content="https://xoxloff-farm.ru/">
+  <meta property="og:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Редкие породы кур — продажа поштучно с документами | XOXLOFF farm">
+  <meta name="twitter:description" content="Ферма редких и декоративных пород кур в Краснодарском крае: Брама, Кохинхин карликовый, Виандот, Китайская шёлковая и другие. Продажа поштучно с документами, доставка по России.">
+  <meta name="twitter:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
   <style>
 :root {
   --brown: #7c4a1e;
@@ -209,6 +225,27 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 .ripple-host { position: relative; overflow: hidden; }
 .ripple-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.5s linear forwards; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "XOXLOFF farm — КурФерма",
+    "description": "Ферма редких и декоративных пород кур: Брама, Кохинхин, Виандот, Китайская шёлковая и другие. Продажа поштучно с документами.",
+    "url": "https://xoxloff-farm.ru/",
+    "telephone": "+79037222188",
+    "image": "https://xoxloff-farm.ru/xoxloff_farm_logo.svg",
+    "logo": "https://xoxloff-farm.ru/xoxloff_farm_logo.svg",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Краснодарский край",
+      "addressLocality": "Динской район",
+      "addressCountry": "RU"
+    },
+    "areaServed": "RU",
+    "sameAs": ["https://wa.me/79037222188"]
+  }
+  </script>
 </head>
 
 <body>
@@ -346,15 +383,15 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
             <label>Что интересует?</label>
             <select id="productSelect" name="product">
               <option value="">— Выберите породу —</option>
-              <option value="Аям Чемани">Аям Чемани</option>
               <option value="Брама">Брама</option>
-              <option value="Кохинхин">Кохинхин</option>
-              <option value="Феникс">Феникс</option>
+              <option value="Кохинхин карликовый">Кохинхин карликовый</option>
+              <option value="Виандот карликовый">Виандот карликовый</option>
+              <option value="Китайская шёлковая">Китайская шёлковая</option>
+              <option value="Локенфельдер">Локенфельдер</option>
+              <option value="Султан">Султан</option>
               <option value="Падуан">Падуан</option>
-              <option value="Виандот">Виандот</option>
-              <option value="Фавероль">Фавероль</option>
-              <option value="Орпингтон">Орпингтон</option>
-              <option value="Инкубационное яйцо">Инкубационное яйцо</option>
+              <option value="Брикель">Брикель</option>
+              <option value="Марам">Марам</option>
               <option value="Другая порода (под заказ)">Другая порода (под заказ)</option>
             </select>
           </div>
@@ -403,11 +440,22 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Telegram ──
-const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
+// ── Отправка заявок ──
+// Прямая отправка в Telegram работает сразу, НО токен бота виден в коде страницы.
+// Безопасный вариант: поднимите прокси (см. serverless/README.md) и впишите его
+// адрес в ORDER_ENDPOINT — тогда токен уходит с сайта на сервер.
+const ORDER_ENDPOINT = ''; // напр. 'https://kurferma-proxy.ВАШ-АДРЕС.workers.dev'
+const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ'; // используется только при пустом ORDER_ENDPOINT
 const TG_CHAT  = '1781734613';
 
 function sendToTelegram(text) {
+  if (ORDER_ENDPOINT) {
+    return fetch(ORDER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text })
+    });
+  }
   return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -558,12 +606,24 @@ if (orderFormEl) {
   });
 }
 
-// Scroll to order section if arriving via #order anchor
+// Scroll to order section if arriving via #order anchor (+ optional &p=<порода> prefill)
 (function() {
-  if (window.location.hash === '#order') {
-    const el = document.getElementById('order');
-    if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 80);
+  const hash = window.location.hash || '';
+  if (!hash.startsWith('#order')) return;
+  // подставить породу из ссылки объявления: index.html#order&p=Брама%20белая
+  const m = hash.match(/[&?]p=([^&]+)/);
+  if (m) {
+    let product = '';
+    try { product = decodeURIComponent(m[1].replace(/\+/g, ' ')); } catch (e) { product = m[1]; }
+    const sel = document.getElementById('productSelect');
+    if (sel && product) {
+      let opt = Array.from(sel.options).find(o => o.value === product);
+      if (!opt) { opt = new Option(product, product); sel.add(opt, sel.options[sel.options.length - 1]); }
+      sel.value = product;
+    }
   }
+  const el = document.getElementById('order');
+  if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 80);
 })();
 
 // ── Hero background photo ──
