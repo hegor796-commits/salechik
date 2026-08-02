@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>КурФерма — Продажа домашних кур</title>
+  <title>Каталог пород кур — Брама, Кохинхин, Виандот, шёлковая | XOXLOFF farm</title>
+  <meta name="description" content="Каталог декоративных и редких пород кур с фото: породы и окрасы. Брама, Кохинхин карликовый, Виандот, Китайская шёлковая, Локенфельдер, Султан, Падуан, Брикель, Марам.">
+  <link rel="canonical" href="https://xoxloff-farm.ru/catalog.html">
+  <meta name="theme-color" content="#7c4a1e">
+  <link rel="icon" type="image/svg+xml" href="/xoxloff_farm_logo.svg">
+  <link rel="apple-touch-icon" href="/xoxloff_farm_logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XOXLOFF farm">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Каталог пород кур — Брама, Кохинхин, Виандот, шёлковая | XOXLOFF farm">
+  <meta property="og:description" content="Каталог декоративных и редких пород кур с фото: породы и окрасы. Брама, Кохинхин карликовый, Виандот, Китайская шёлковая, Локенфельдер, Султан, Падуан, Брикель, Марам.">
+  <meta property="og:url" content="https://xoxloff-farm.ru/catalog.html">
+  <meta property="og:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Каталог пород кур — Брама, Кохинхин, Виандот, шёлковая | XOXLOFF farm">
+  <meta name="twitter:description" content="Каталог декоративных и редких пород кур с фото: породы и окрасы. Брама, Кохинхин карликовый, Виандот, Китайская шёлковая, Локенфельдер, Султан, Падуан, Брикель, Марам.">
+  <meta name="twitter:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
   <style>
 :root {
   --brown: #7c4a1e;
@@ -444,7 +460,7 @@ a.chicken-card:hover { color: var(--text); }
           ? '<div class="ad-desc">' + esc(v.description) + '</div>'
           : '<div class="ad-desc empty">Описание появится позже.</div>') +
       '</div>' +
-      '<div style="text-align:center"><button type="button" class="btn btn-primary ripple-host" style="display:inline-flex" data-goto="home" data-anchor="order">Оставить заявку</button></div>';
+      '<div style="text-align:center"><a class="btn btn-primary ripple-host" style="display:inline-flex" href="index.html#order&p=' + encodeURIComponent(v.name) + '">Оставить заявку</a></div>';
     animateAd();
 
     if (many) {
@@ -483,18 +499,6 @@ a.chicken-card:hover { color: var(--text); }
 })();
 </script>
 <script>
-// ── Telegram ──
-const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
-const TG_CHAT  = '1781734613';
-
-function sendToTelegram(text) {
-  return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: TG_CHAT, text: text, parse_mode: 'HTML' })
-  });
-}
-
 // ── Scroll Reveal ──
 let _srObserver = null;
 let _srFallback = null;

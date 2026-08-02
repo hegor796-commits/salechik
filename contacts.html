@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>КурФерма — Продажа домашних кур</title>
+  <title>Контакты — XOXLOFF farm, Краснодарский край</title>
+  <meta name="description" content="Купить редких кур: телефон, WhatsApp, Telegram, адрес фермы в Краснодарском крае. Самовывоз с фермы и доставка по России транспортными компаниями.">
+  <link rel="canonical" href="https://xoxloff-farm.ru/contacts.html">
+  <meta name="theme-color" content="#7c4a1e">
+  <link rel="icon" type="image/svg+xml" href="/xoxloff_farm_logo.svg">
+  <link rel="apple-touch-icon" href="/xoxloff_farm_logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XOXLOFF farm">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Контакты — XOXLOFF farm, Краснодарский край">
+  <meta property="og:description" content="Купить редких кур: телефон, WhatsApp, Telegram, адрес фермы в Краснодарском крае. Самовывоз с фермы и доставка по России транспортными компаниями.">
+  <meta property="og:url" content="https://xoxloff-farm.ru/contacts.html">
+  <meta property="og:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Контакты — XOXLOFF farm, Краснодарский край">
+  <meta name="twitter:description" content="Купить редких кур: телефон, WhatsApp, Telegram, адрес фермы в Краснодарском крае. Самовывоз с фермы и доставка по России транспортными компаниями.">
+  <meta name="twitter:image" content="https://xoxloff-farm.ru/xoxloff_farm_logo.svg">
   <style>
 :root {
   --brown: #7c4a1e;
@@ -299,11 +315,22 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Telegram ──
-const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ';
+// ── Отправка заявок ──
+// Прямая отправка в Telegram работает сразу, НО токен бота виден в коде страницы.
+// Безопасный вариант: поднимите прокси (см. serverless/README.md) и впишите его
+// адрес в ORDER_ENDPOINT — тогда токен уходит с сайта на сервер.
+const ORDER_ENDPOINT = ''; // напр. 'https://kurferma-proxy.ВАШ-АДРЕС.workers.dev'
+const TG_TOKEN = '8652039775:AAE8jq-4lT98rNx4982R46aSO8Kvxc-dCWQ'; // используется только при пустом ORDER_ENDPOINT
 const TG_CHAT  = '1781734613';
 
 function sendToTelegram(text) {
+  if (ORDER_ENDPOINT) {
+    return fetch(ORDER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text })
+    });
+  }
   return fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
