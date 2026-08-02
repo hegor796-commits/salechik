@@ -78,10 +78,19 @@ section { padding: 64px 24px; }
 .section-title h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; color: var(--brown); margin-bottom: 8px; }
 .section-title p { color: var(--text-muted); font-size: 1.05rem; }
 .container { max-width: 1280px; margin: 0 auto; }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
-.chicken-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
-.chicken-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(124,74,30,0.2); }
-.card-image { height: 180px; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; }
+.cards-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; max-width: 1040px; margin: 0 auto; }
+@media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+.chicken-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; color: var(--text); }
+.chicken-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(124,74,30,0.2); color: var(--text); }
+.card-image { height: 220px; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; overflow: hidden; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
+.card-image .ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#8a8172; font-size:1rem; }
+.card-image .ph .ph-icon { font-size:2.4rem; opacity:0.6; }
+.card-image .ph .ph-num { font-weight:700; font-size:1.05rem; }
+.card-image .ph .ph-note { font-size:0.75rem; opacity:0.85; }
+.card-image .photo-badge { position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.55); color:#fff; font-size:0.8rem; border-radius:20px; padding:2px 10px; }
+.card-count { color: var(--text-muted); font-size: 0.92rem; margin-top: 2px; }
 .card-badge { position: absolute; top: 12px; right: 12px; background: var(--brown); color: var(--yellow); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; }
 .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 .card-body h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; color: var(--brown); }
@@ -94,7 +103,9 @@ section { padding: 64px 24px; }
 .btn-card { background: var(--yellow); color: var(--brown); border: none; border-radius: 8px; padding: 10px 18px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: background 0.2s, transform 0.1s; }
 .btn-card:hover { background: var(--yellow-light); transform: scale(1.04); }
 .why-section { background: var(--cream-dark); }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; }
+.features-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
+@media (max-width: 1000px) { .features-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
 .feature-card { background: var(--white); border-radius: var(--radius); padding: 28px 24px; text-align: center; box-shadow: var(--shadow); }
 .feature-icon { font-size: 2.8rem; margin-bottom: 14px; }
 .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
@@ -299,53 +310,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
         <h2>Популярные породы</h2>
         <p>Самые востребованные редкие породы этого сезона</p>
       </div>
-      <div class="cards-grid stagger">
-        <div class="chicken-card">
-          <div class="card-image">🖤<span class="card-badge">Редкая</span></div>
-          <div class="card-body">
-            <h3>Аям Чемани</h3>
-            <p>Чёрная жемчужина Индонезии. Полностью чёрная птица — перья, кожа, кости.</p>
-            <div class="card-meta">
-              <span class="meta-item">🌍 Индонезия</span>
-              <span class="meta-item">📋 С документами</span>
-            </div>
-            <div class="card-footer">
-              <div class="price">от 25 000 ₽</div>
-              <button class="btn-card" data-order="Аям Чемани">Оставить заявку</button>
-            </div>
-          </div>
-        </div>
-        <div class="chicken-card">
-          <div class="card-image">🪶</div>
-          <div class="card-body">
-            <h3>Брама Светлая</h3>
-            <p>Великан с шёлковым оперением. Спокойный нрав, невероятный вид.</p>
-            <div class="card-meta">
-              <span class="meta-item">🌍 Азия</span>
-              <span class="meta-item">📋 С документами</span>
-            </div>
-            <div class="card-footer">
-              <div class="price">от 4 500 ₽</div>
-              <button class="btn-card" data-order="Брама Светлая">Оставить заявку</button>
-            </div>
-          </div>
-        </div>
-        <div class="chicken-card">
-          <div class="card-image">✨<span class="card-badge">Экзотика</span></div>
-          <div class="card-body">
-            <h3>Феникс</h3>
-            <p>Хвост до 1 метра. Японская легенда в вашем хозяйстве.</p>
-            <div class="card-meta">
-              <span class="meta-item">🌍 Япония</span>
-              <span class="meta-item">📋 С документами</span>
-            </div>
-            <div class="card-footer">
-              <div class="price">от 8 000 ₽</div>
-              <button class="btn-card" data-order="Феникс">Оставить заявку</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cards-grid stagger" id="popularGrid"></div>
       <div class="reveal" style="text-align:center;margin-top:36px;">
         <button type="button" class="btn btn-primary ripple-host" data-goto="catalog">Весь каталог →</button>
       </div>
@@ -658,6 +623,50 @@ if (orderFormEl) {
 document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal(document.body);
 });
+</script>
+<script src="katalog/data.js"></script>
+<script>
+// ── Популярные породы на главной (реальные данные из каталога) ──
+(function () {
+  var DATA = window.CATALOG_DATA;
+  var grid = document.getElementById('popularGrid');
+  if (!DATA || !grid) return;
+  var FEATURED = ['brama', 'kohinhin', 'shelkovaya']; // какие породы показать на главной
+  var DIR = DATA.photoDir || 'katalog/photos/';
+  function pad4(n) { n = String(n); while (n.length < 4) n = '0' + n; return n; }
+  function cands(num) {
+    return ['DSC_' + pad4(num) + '.jpg', 'DSC_' + pad4(num) + '.JPG', 'DSC_' + pad4(num) + '.jpeg',
+            num + '.jpg', num + '.jpeg', num + '.png', num + '.webp', num + '.JPG'];
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+  function plural(n, one, few, many) { var a=n%10,b=n%100; if(a===1&&b!==11)return one; if(a>=2&&a<=4&&(b<12||b>14))return few; return many; }
+
+  var html = '';
+  FEATURED.forEach(function (id) {
+    var b = null;
+    for (var i = 0; i < DATA.breeds.length; i++) if (DATA.breeds[i].id === id) b = DATA.breeds[i];
+    if (!b) return;
+    var num = b.variants.length && b.variants[0].photos.length ? b.variants[0].photos[0] : null;
+    var n = b.variants.length;
+    var img = num !== null
+      ? '<img src="' + DIR + cands(num)[0] + '" data-num="' + num + '" data-ci="0" loading="lazy" alt="' + esc(b.name) + '">'
+      : '<div class="ph"><div class="ph-icon">&#128247;</div></div>';
+    html += '<a class="chicken-card" href="catalog.html#breed/' + b.id + '">' +
+      '<div class="card-image">' + img + '</div>' +
+      '<div class="card-body"><h3>' + esc(b.name) + '</h3>' +
+      '<div class="card-count">' + n + ' ' + plural(n, 'окрас', 'окраса', 'окрасов') + '</div></div>' +
+      '</a>';
+  });
+  grid.innerHTML = html;
+
+  grid.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.num) return;
+    var list = cands(img.dataset.num), next = parseInt(img.dataset.ci, 10) + 1;
+    if (next < list.length) { img.dataset.ci = next; img.src = DIR + list[next]; }
+    else { img.outerHTML = '<div class="ph"><div class="ph-icon">&#128247;</div><div class="ph-num">№ ' + img.dataset.num + '</div><div class="ph-note">фото ' + img.dataset.num + '.jpg</div></div>'; }
+  }, true);
+})();
 </script>
 </body>
 </html>
