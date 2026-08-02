@@ -324,7 +324,15 @@ a.chicken-card:hover { color: var(--text); }
   var DATA = window.CATALOG_DATA;
   if (!DATA) return;
   var PHOTO_DIR = DATA.photoDir || 'katalog/photos/';
-  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG'];
+  // Возможные имена файла для одного номера. Сайт пробует их по очереди:
+  // сначала имена прямо с фотоаппарата (DSC_0246.jpg), затем короткие (246.jpg).
+  function pad4(n) { n = String(n); while (n.length < 4) n = '0' + n; return n; }
+  function photoCandidates(num) {
+    return [
+      'DSC_' + pad4(num) + '.jpg', 'DSC_' + pad4(num) + '.JPG', 'DSC_' + pad4(num) + '.jpeg',
+      num + '.jpg', num + '.jpeg', num + '.png', num + '.webp', num + '.JPG'
+    ];
+  }
 
   var grid = document.getElementById('catalogGrid');
   var adView = document.getElementById('adView');
@@ -353,19 +361,21 @@ a.chicken-card:hover { color: var(--text); }
   }
 
   function photoHTML(num) {
-    return '<img src="' + PHOTO_DIR + num + '.' + EXTS[0] + '" data-num="' + num + '" data-ext="0" loading="lazy" alt="Фото ' + num + '">';
+    var c = photoCandidates(num);
+    return '<img src="' + PHOTO_DIR + c[0] + '" data-num="' + num + '" data-ci="0" loading="lazy" alt="Фото ' + num + '">';
   }
   function placeholderHTML(num) {
     return '<div class="ph"><div class="ph-icon">&#128247;</div><div class="ph-num">№ ' + num + '</div><div class="ph-note">фото ' + num + '.jpg</div></div>';
   }
-  // если файла нет — пробуем другие расширения, затем серый placeholder с номером
+  // если файла нет — пробуем следующее имя-кандидат, затем серый placeholder с номером
   document.addEventListener('error', function (e) {
     var img = e.target;
     if (!img || img.tagName !== 'IMG' || !img.dataset.num) return;
-    var next = parseInt(img.dataset.ext, 10) + 1;
-    if (next < EXTS.length) {
-      img.dataset.ext = next;
-      img.src = PHOTO_DIR + img.dataset.num + '.' + EXTS[next];
+    var cands = photoCandidates(img.dataset.num);
+    var next = parseInt(img.dataset.ci, 10) + 1;
+    if (next < cands.length) {
+      img.dataset.ci = next;
+      img.src = PHOTO_DIR + cands[next];
     } else {
       var ph = document.createElement('div');
       ph.innerHTML = placeholderHTML(img.dataset.num);

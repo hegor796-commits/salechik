@@ -471,21 +471,30 @@ document.addEventListener('DOMContentLoaded', animateCounters);
 (function () {
   var LIFE_PHOTOS = [623, 634, 635];
   var DIR = 'katalog/photos/';
-  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG'];
+  // Возможные имена файла для номера: сначала с фотоаппарата (DSC_0623.jpg), потом короткие (623.jpg)
+  function pad4(n) { n = String(n); while (n.length < 4) n = '0' + n; return n; }
+  function photoCandidates(num) {
+    return [
+      'DSC_' + pad4(num) + '.jpg', 'DSC_' + pad4(num) + '.JPG', 'DSC_' + pad4(num) + '.jpeg',
+      num + '.jpg', num + '.jpeg', num + '.png', num + '.webp', num + '.JPG'
+    ];
+  }
   var grid = document.getElementById('lifeGrid');
   if (!grid) return;
   grid.innerHTML = LIFE_PHOTOS.map(function (num) {
+    var c = photoCandidates(num);
     return '<div class="life-item reveal">' +
-      '<img src="' + DIR + num + '.' + EXTS[0] + '" data-num="' + num + '" data-ext="0" loading="lazy" alt="Жизнь фермы ' + num + '">' +
+      '<img src="' + DIR + c[0] + '" data-num="' + num + '" data-ci="0" loading="lazy" alt="Жизнь фермы ' + num + '">' +
       '</div>';
   }).join('');
   grid.addEventListener('error', function (e) {
     var img = e.target;
     if (!img || img.tagName !== 'IMG' || !img.dataset.num) return;
-    var next = parseInt(img.dataset.ext, 10) + 1;
-    if (next < EXTS.length) {
-      img.dataset.ext = next;
-      img.src = DIR + img.dataset.num + '.' + EXTS[next];
+    var cands = photoCandidates(img.dataset.num);
+    var next = parseInt(img.dataset.ci, 10) + 1;
+    if (next < cands.length) {
+      img.dataset.ci = next;
+      img.src = DIR + cands[next];
     } else {
       img.outerHTML = '<div class="ph"><div class="ph-icon">&#128247;</div><div class="ph-num">№ ' + img.dataset.num + '</div><div class="ph-note">фото ' + img.dataset.num + '.jpg</div></div>';
     }
