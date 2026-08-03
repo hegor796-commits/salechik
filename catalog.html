@@ -434,7 +434,7 @@ a.chicken-card:hover { color: var(--text); }
     grid.innerHTML = DATA.breeds.map(function (b) {
       var n = b.variants.length;
       var first = b.variants.length && b.variants[0].photos.length ? b.variants[0].photos[0] : null;
-      return cardHTML('#breed/' + b.id, first, b.name, n + ' ' + plural(n, 'окрас', 'окраса', 'окрасов'), '');
+      return cardHTML('porody/' + b.id + '.html', first, b.name, n + ' ' + plural(n, 'окрас', 'окраса', 'окрасов'), '');
     }).join('');
     if (!firstRender) animateCards();
   }

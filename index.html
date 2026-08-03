@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var img = num !== null
       ? '<img src="' + DIR + cands(num)[0] + '" data-num="' + num + '" data-ci="0" loading="lazy" alt="' + esc(b.name) + '">'
       : '<div class="ph"><div class="ph-icon">&#128247;</div></div>';
-    html += '<a class="chicken-card" href="catalog.html#breed/' + b.id + '">' +
+    html += '<a class="chicken-card" href="porody/' + b.id + '.html">' +
       '<div class="card-image">' + img + '</div>' +
       '<div class="card-body"><h3>' + esc(b.name) + '</h3>' +
       '<div class="card-count">' + n + ' ' + plural(n, 'окрас', 'окраса', 'окрасов') + '</div></div>' +
