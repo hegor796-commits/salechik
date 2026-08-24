@@ -1,0 +1,23 @@
+# Редиректы для склейки зеркал (нужно для SEO: один адрес сайта)
+# Работает на Apache-хостинге (reg.ru / ISPmanager). На Vercel не используется —
+# там https и склейка www настраиваются в панели проекта.
+
+RewriteEngine On
+
+# 1) Принудительный HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 2) www → без www (главное зеркало — xoxloff-farm.ru)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Кэш статики (ускоряет повторную загрузку)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>

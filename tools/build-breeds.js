@@ -57,6 +57,7 @@ header{background:var(--brown);color:#fff;position:sticky;top:0;z-index:100;box-
 nav{display:flex;gap:4px;flex-wrap:wrap}
 nav a{color:var(--cream);padding:8px 14px;border-radius:8px;font-weight:500}
 nav a:hover,nav a.active{background:var(--yellow);color:var(--brown)}
+.nav-phone{color:#fff!important;font-weight:700;white-space:nowrap}
 .nav-cta{background:var(--yellow);color:var(--brown)!important;font-weight:700}
 main{max-width:1100px;margin:0 auto;padding:20px 16px 56px}
 .crumbs{font-size:.9rem;color:var(--text-muted);margin-bottom:18px}
@@ -94,7 +95,7 @@ function page(breed) {
   const url = `${SITE}/porody/${breed.id}.html`;
   const n = breed.variants.length;
   const intro = INTRO[breed.id] || '';
-  const title = `${breed.name} — окрасы, фото, купить | XOXLOFF farm`;
+  const title = `${breed.name} — окрасы, фото, купить в Краснодарском крае | XOXLOFF farm`;
   const descText = (intro || `${breed.name}: породные куры с документами.`).replace(/\s+/g, ' ').slice(0, 300);
 
   const cards = breed.variants.map(v => {
@@ -159,6 +160,7 @@ function page(breed) {
       <a href="../catalog.html">Каталог</a>
       <a href="../about.html">О нас</a>
       <a href="../contacts.html">Контакты</a>
+      <a class="nav-phone" href="tel:+79037222188">☎ 8 903 722-21-88</a>
       <a class="nav-cta" href="../index.html#order">Заказать</a>
     </nav>
   </div>
@@ -176,7 +178,8 @@ ${cards}
   <p class="breed-links"><a href="../catalog.html">← Все породы в каталоге</a></p>
 </main>
 <footer>
-  © XOXLOFF farm — редкие породы кур, Краснодарский край · <a href="../contacts.html">Контакты</a>
+  <p>XOXLOFF farm — редкие породы кур, Краснодарский край, Динской район.</p>
+  <p>Телефон: <a href="tel:+79037222188">8 (903) 722-21-88</a> · <a href="../contacts.html">Контакты</a> · <a href="../about.html">О ферме</a></p>
 </footer>
 <script>
 // подхват имён фото: DSC_0NNN.jpg → NNN.jpg → серый placeholder
