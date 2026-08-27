@@ -154,7 +154,7 @@ function page(breed) {
 <body>
 <header>
   <div class="header-inner">
-    <a class="logo" href="../index.html"><img src="../xoxloff_farm_logo.svg" width="44" height="44" alt="XOXLOFF farm">КурФерма</a>
+    <a class="logo" href="../index.html"><img src="../xoxloff_farm_logo.svg" width="44" height="44" alt="XOXLOFF farm">XOXLOFF farm</a>
     <nav>
       <a href="../index.html">Главная</a>
       <a href="../catalog.html">Каталог</a>
