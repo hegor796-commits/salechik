@@ -158,6 +158,7 @@ function page(breed) {
     <nav>
       <a href="../index.html">Главная</a>
       <a href="../catalog.html">Каталог</a>
+      <a href="../yaytso.html">Яйцо</a>
       <a href="../about.html">О нас</a>
       <a href="../contacts.html">Контакты</a>
       <a class="nav-phone" href="tel:+79037222188">☎ 8 903 722-21-88</a>
@@ -214,6 +215,7 @@ const today = new Date().toISOString().slice(0, 10);
 const staticUrls = [
   { loc: SITE + '/', pr: '1.0', cf: 'weekly' },
   { loc: SITE + '/catalog.html', pr: '0.9', cf: 'weekly' },
+  { loc: SITE + '/yaytso.html', pr: '0.8', cf: 'weekly' },
   { loc: SITE + '/about.html', pr: '0.6', cf: 'monthly' },
   { loc: SITE + '/contacts.html', pr: '0.7', cf: 'monthly' }
 ];
