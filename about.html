@@ -53,6 +53,7 @@ nav { display: flex; gap: 6px; align-items: center; }
 nav a, nav button { color: var(--cream); padding: 8px 16px; border-radius: 8px; font-weight: 500; transition: background 0.2s, color 0.2s; }
 nav a:hover, nav a.active, nav button:hover, nav button.active { background: var(--yellow); color: var(--brown); }
 .nav-cta { background: var(--yellow); color: var(--brown) !important; font-weight: 700; margin-left: 8px; }
+.nav-phone { color: var(--yellow) !important; font-weight: 700; }
 .nav-cta:hover { background: var(--yellow-light) !important; }
 .burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
 .burger span { display: block; width: 26px; height: 3px; background: var(--cream); border-radius: 2px; transition: 0.3s; }
@@ -255,6 +256,7 @@ footer ul li a:hover, footer ul li button:hover { color: var(--yellow); }
       <a href="yaytso.html" class="nav-item">Яйцо</a>
       <a href="about.html" data-goto="about" class="nav-item active">О нас</a>
       <a href="contacts.html" data-goto="contacts" class="nav-item">Контакты</a>
+      <a href="tel:+79037222188" class="nav-item nav-phone">☎ 8 903 722-21-88</a>
       <a href="index.html#order" class="nav-cta">Заказать</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">

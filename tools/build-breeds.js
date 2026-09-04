@@ -74,7 +74,8 @@ main{max-width:1100px;margin:0 auto;padding:20px 16px 56px}
 .v-photo .badge{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.78rem;border-radius:20px;padding:2px 9px}
 .v-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;gap:8px}
 .v-body h2{font-size:1.1rem;color:var(--brown);line-height:1.3}
-.v-body p{font-size:.92rem;color:var(--text-muted);flex:1}
+.v-body p{font-size:.92rem;color:var(--text-muted)}
+.v-price{font-weight:800;color:var(--brown);font-size:1.05rem;margin-top:2px}
 .v-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;border-radius:8px;font-weight:700;font-size:.9rem}
 .btn-primary{background:var(--yellow);color:var(--brown)}
@@ -104,11 +105,13 @@ function page(breed) {
       : `<div class="ph"><div class="ph-icon">&#128247;</div></div>`;
     const badge = v.photos.length > 1 ? `<span class="badge">&#128247; ${v.photos.length}</span>` : '';
     const desc = v.description ? `<p>${esc(v.description)}</p>` : '<p>Описание появится позже.</p>';
+    const priceHtml = v.price ? `<p class="v-price">${esc(v.price)}</p>` : '';
     return `      <article class="variant">
         <div class="v-photo">${img}${badge}</div>
         <div class="v-body">
           <h2>${esc(v.name)}</h2>
           ${desc}
+          ${priceHtml}
           <div class="v-actions">
             <a class="btn btn-primary" href="../index.html#order&amp;p=${encodeURIComponent(v.name)}">Оставить заявку</a>
             <a class="btn btn-ghost" href="../catalog.html#ad/${breed.id}/${v.id}">Все фото</a>
@@ -172,7 +175,7 @@ function page(breed) {
     <h1>${esc(breed.name)} — окрасы и фото</h1>
     <p class="intro">${esc(intro)}</p>
   </div>
-  <p class="count-line">${n} ${plural(n, 'окрас', 'окраса', 'окрасов')} в наличии. Цена у каждой птицы своя — уточняйте по заявке.</p>
+  <p class="count-line">${n} ${plural(n, 'окрас', 'окраса', 'окрасов')} в наличии. Цена — от 2000 ₽, точную уточняйте у хозяйки по заявке.</p>
   <section class="variants">
 ${cards}
   </section>
